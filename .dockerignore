@@ -1,0 +1,6 @@
+Dockerfile
+.vscode
+.dockerignore
+data
+modellingscripts
+startR.sh
