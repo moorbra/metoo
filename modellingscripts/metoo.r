@@ -26,7 +26,7 @@ tweet_sparse_matrix <- tweet_words %>%
                        cast_dtm(tweet, word, n)
 tweet_sparse_matrix
 
-tweets_lda <- LDA(tweet_sparse_matrix, k = 20, control = list(seed = 1234))
+tweets_lda <- LDA(tweet_sparse_matrix, k = 10, control = list(seed = 1234))
 
 tweets_topics <- tidy(tweets_lda, matrix = "beta")
 tweets_topics
