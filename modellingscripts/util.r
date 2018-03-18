@@ -5,8 +5,6 @@ if (!exists("util_R")){
         tweets <- read_csv(datafile)
         tweets <- tweets %>%
                 mutate(date = mdy_hm(date)) %>%
-                filter(date >= ymd_hm("2018-02-26 20:00")
-                    & date <= ymd_hm("2018-02-26 23:59")) %>%
                 mutate(didx = hour(date))
 
         return(tweets)
