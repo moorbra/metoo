@@ -9,21 +9,21 @@ library(tm)
 library(topicmodels)
 source("util.r")
 
-tweets = loadtweets("../data/Metoo_Feb262018.csv")
+tweets = loadtweets("../data/MeToo/data/Metoo_Feb262018.csv")
 
 # Tokenize the tweets.
 tokenized_tweets <- tokenize(tweets)
 
 # Remove stop words
 tokenized_tweets <- removestopwords(tokenized_tweets)
-
+tokenized_tweets
 tweet_words <- tokenized_tweets %>%
-               count(tweet, word, sort = TRUE) %>%
+               count(id, word, sort = TRUE) %>%
                ungroup()
 
 tweet_words
 tweet_sparse_matrix <- tweet_words %>%
-                       cast_dtm(tweet, word, n)
+                       cast_dtm(id, word, n)
 tweet_sparse_matrix
 
 tweets_lda <- LDA(tweet_sparse_matrix, k = 10, control = list(seed = 1234))

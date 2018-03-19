@@ -11,14 +11,15 @@ if (!exists("util_R")){
     }
 
     tokenize <- function(tweets) {
-        return(tweets %>% unnest_tokens(word, text))
+        return(tweets %>% unnest_tokens(word, tweet))
     }
 
     removestopwords <- function(tokens) {
-        custom_stop_words <- read_csv("custom_stop_words.txt")
+        #custom_stop_words <- read_csv("custom_stop_words.txt")
         data(stop_words)
 
-        merged_stop_words <- bind_rows(custom_stop_words, stop_words)
+        #merged_stop_words <- bind_rows(custom_stop_words, stop_words)
+        merged_stop_words <- bind_rows(stop_words)
 
         nostopwords <- tokens %>%
             anti_join(merged_stop_words)
@@ -30,9 +31,9 @@ if (!exists("util_R")){
         return(tokens %>% count(word, sort = TRUE))
     }
 
-    plottermfrequency <- function(tokens, top) {
+    plottermfrequency <- function(tokens, frequencythreshold) {
         countterms(tokens) %>%
-        filter(n > top) %>%
+        filter(n > frequencythreshold) %>%
         mutate(word = reorder(word, n)) %>%
         ggplot(aes(word, n)) +
         geom_col() +
