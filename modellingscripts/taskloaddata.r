@@ -7,8 +7,9 @@ library(lubridate)
 if (!exists("loaddatatask")){
     loaddatatask <- T
 
-        task_loaddata <- function() {
-            return(loadTweets())
+        task_loaddata <- function(datafilepath, filepattern, scrub = scrubtweet_default) {
+            scrubtweet <<- scrub
+            return(loadTweets(datafilepath, filepattern))
         }
 
         loadtweetfile <- function(datafile) {
@@ -21,21 +22,16 @@ if (!exists("loaddatatask")){
             return(tweets)
         }
 
-        scrubtweet <- function(tweet) {
-            patterns <- c("[@]\\w+[ ,.:]?|\\n|[?_#.]{2,}|&amp;|[\"]|http[s?]://\\w+.\\w+[/\\w+]{0,}|^RT|[#2]{0,1}[Mm][Ee][Tt][Oo]{2}[_]{0,1}")
-            tweet <- str_replace_all(tweet, patterns, "")
-            tweet <- str_replace_all(tweet, "[ ]{2,}"," ")
-            tweet <- str_replace_all(tweet, "^[ ]{1,}|[ ]{1,}$","")
+        scrubtweet_default <- function(tweet) {
             return (tweet)
         }
 
 
-        loadTweets <- function() {
-            febtweets <- loadtweetfile("../data/MeToo/data/Metoo_Feb262018.csv")
-            mar06tweets <- loadtweetfile("../data/MeToo/data/MeToo_March062018.csv")
-            mar08tweets <- loadtweetfile("../data/MeToo/data/MeToo_March082018.csv")
-            mar10tweets <- loadtweetfile("../data/MeToo/data/Metoo0310_2017.csv")
-            tweets = bind_rows(febtweets, mar06tweets, mar08tweets, mar10tweets)
-            return(tweets)
+        loadTweets <- function(datafilepath, filepattern) {
+            files <- list.files(path=datafilepath, pattern=filepattern)
+            data <- lapply(files, function(file) {
+                loadtweetfile(file.path(datafilepath, file))
+            })
+            return(bind_rows(data))
         }
 }

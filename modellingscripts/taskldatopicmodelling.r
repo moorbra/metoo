@@ -4,15 +4,13 @@ library(tm)
 if (!exists("taskldatopicmodelling")){
     taskldatopicmodelling <- T
 
-    task_extracttopics <- function(tokens, outputpath) {
+    task_extracttopics <- function(tokens, k,  save = saveoutput_default) {
         wordcount <- counttweetwords(tokens)
+        save(wordcount, "word_count.csv")
         dtm <- documenttermmatrix(wordcount)
-        lda <- LDA(dtm, k = 10, control = list(seed = 1234))
+        lda <- LDA(dtm, k = k, control = list(seed = 1234))
         topics <- tidy(lda, matrix = "beta")
-
-        saveoutput(outputpath,
-            wordcount,
-            topics)
+        save(topics, "topics.csv")        
 
         return(topics)
     }
@@ -42,10 +40,7 @@ if (!exists("taskldatopicmodelling")){
     }
 
 
-    saveoutput <- function(outputpath, wordcount, topics) {
-        write.csv(wordcount, file.path(outputpath, "tweet_word_count.csv"))
-        write.csv(topics, file.path(outputpath, "tweet_topics.csv"))
-        # write.csv(documenttermmatrix, file.path(outputpath, "tweet_document_term_matrix.csv"))
+    saveoutput_default <- function(outputpath, wordcount, topics) {
     }
 
     counttweetwords <- function(tokens) {
