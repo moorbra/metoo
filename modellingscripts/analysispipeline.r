@@ -35,7 +35,11 @@ if (!exists("analysispipeline")){
         
         # Create a topic model
         ldatopicmodel <- task_extracttopics(tweets_tokens, numbertopics, save_output)
-        topics_visualization <- task_visualizetopics(ldatopicmodel, top_n_terms = termspertopic, rows = 1, columns = 2, save = save_visualization)
+        topics_visualization <- task_visualizetopics(ldatopicmodel, 
+            top_n_terms = termspertopic, 
+            rows = topicrows, 
+            columns = topiccolumns, 
+            save = save_visualization)
     }
 
     save_output <- function(data, filename) {
