@@ -3,7 +3,7 @@ if (!exists("analysispipeline")){
     
     analysis_pipeline <- function(datapath, outputpath, outputprefix, 
         scrubtweet = scrubscrubtweet_default,
-        numbertopics = 5, termspertopic = 10,
+        numbertopics = 5, termspertopic = 10, topiccolumns = 1, topicrows = 1,
         minimumtermcount = 500) {
         
         datapath <- datapath
@@ -35,9 +35,7 @@ if (!exists("analysispipeline")){
         
         # Create a topic model
         ldatopicmodel <- task_extracttopics(tweets_tokens, numbertopics, save_output)
-        #topics_visualization <- 
-        task_visualizetopics(ldatopicmodel, top_n_terms = termspertopic, rows = 1, columns = 2)    
-        #save_visualization(topics_visualization, "topic_model.png", )
+        topics_visualization <- task_visualizetopics(ldatopicmodel, top_n_terms = termspertopic, rows = 1, columns = 2, save = save_visualization)
     }
 
     save_output <- function(data, filename) {

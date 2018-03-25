@@ -13,7 +13,9 @@ analysis_pipeline(
     outputpath = file.path("analysis"),
     outputprefix = "metoo",
     scrubtweet = scrubtweet,
-    numbertopics = 5,
-    termspertopic = 10,
+    numbertopics = 20,
+    termspertopic = 15,
+    topiccolumns = 1,
+    topicrows = 1,
     minimumtermcount = 1000
 )

@@ -16,17 +16,18 @@ if (!exists("taskldatopicmodelling")){
         return(topics)
     }
 
-    task_visualizetopics <- function(topics, top_n_terms, rows = 1, columns = 1) {
+    task_visualizetopics <- function(topics, top_n_terms, rows = 1, columns = 1, save) {
         top_terms <- topic_top_terms(topics, top_n_terms)
-        plot_top_terms(top_terms, rows = rows, columns = columns)
+        plots <- plot_top_terms(top_terms, rows = rows, columns = columns, save = save)
+        return(plots)
     }
 
-    plot_top_terms <- function(top_terms, page = 1, rows = 1, columns = 1) {
+    plot_top_terms <- function(top_terms, page = 1, rows = 1, columns = 1, save) {
         number_pages <- number_topcs / (rows * columns)
         number_pages <- if(number_pages %% 2 > 0) number_pages + 1 else number_pages
         for(page in 1:number_pages) {
             plot <- plot_top_terms_page(top_terms, page, rows, columns)
-            ggsave(file.path(outputpath, paste("page_", page, ".png", sep = "")), plot = plot)            
+            save(plot, paste("topicsvisualization_", page, ".png", sep = ""))
         }
     }
 
