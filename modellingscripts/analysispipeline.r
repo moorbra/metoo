@@ -1,9 +1,13 @@
 if (!exists("analysispipeline")){
     analysispipeline <- T
     
-    analysis_pipeline <- function(datapath, analysispath, outputprefix, scrubtweet = scrubscrubtweet_default) {
+    analysis_pipeline <- function(datapath, outputpath, outputprefix, 
+        scrubtweet = scrubscrubtweet_default,
+        numbertopics = 5, termspertopic = 10,
+        minimumtermcount = 500) {
+        
         datapath <- datapath
-        outputpath <<- analysispath
+        outputpath <<- outputpath
         outputprefix <<- outputprefix
         
         # Load the tweets
@@ -26,13 +30,14 @@ if (!exists("analysispipeline")){
         # Compute term frequency
         term_frequency <- task_computetermfrequency(tweets_tokens)
         save_output(term_frequency, "term_frequency.csv")
-        term_frequency_plot <- task_plottermfrequency(term_frequency, 500)        
+        term_frequency_plot <- task_plottermfrequency(term_frequency, minimumtermcount)
         save_visualization(term_frequency_plot, "term_frequency.png")
         
         # Create a topic model
-        ldatopicmodel <- task_extracttopics(tweets_tokens, 6, save_output)
-        topics_visualization <- task_visualizetopics(ldatopicmodel, 20)    
-        save_visualization(topics_visualization, "topic_model.png")
+        ldatopicmodel <- task_extracttopics(tweets_tokens, numbertopics, save_output)
+        #topics_visualization <- 
+        task_visualizetopics(ldatopicmodel, top_n_terms = termspertopic, rows = 1, columns = 2)    
+        #save_visualization(topics_visualization, "topic_model.png", )
     }
 
     save_output <- function(data, filename) {

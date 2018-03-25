@@ -1,33 +1,43 @@
 library(topicmodels)
 library(tm)
+library(ggforce)
 
 if (!exists("taskldatopicmodelling")){
     taskldatopicmodelling <- T
 
-    task_extracttopics <- function(tokens, k,  save = saveoutput_default) {
+    task_extracttopics <- function(tokens, k,  save = saveoutput_default) { 
+        number_topcs <<- k
         wordcount <- counttweetwords(tokens)
         save(wordcount, "word_count.csv")
         dtm <- documenttermmatrix(wordcount)
-        lda <- LDA(dtm, k = k, control = list(seed = 1234))
+        lda <- LDA(dtm, k = number_topcs, control = list(seed = 1234))
         topics <- tidy(lda, matrix = "beta")
-        save(topics, "topics.csv")        
-
+        save(topics, "topics.csv")
         return(topics)
     }
 
-    task_visualizetopics <- function(topics, top_n_terms) {
+    task_visualizetopics <- function(topics, top_n_terms, rows = 1, columns = 1) {
         top_terms <- topic_top_terms(topics, top_n_terms)
-        plot <- plot_top_terms(top_terms)
-        return(plot)
+        plot_top_terms(top_terms, rows = rows, columns = columns)
     }
 
-    plot_top_terms <- function(top_terms) {
+    plot_top_terms <- function(top_terms, page = 1, rows = 1, columns = 1) {
+        number_pages <- number_topcs / (rows * columns)
+        number_pages <- if(number_pages %% 2 > 0) number_pages + 1 else number_pages
+        for(page in 1:number_pages) {
+            plot <- plot_top_terms_page(top_terms, page, rows, columns)
+            ggsave(file.path(outputpath, paste("page_", page, ".png", sep = "")), plot = plot)            
+        }
+    }
+
+    plot_top_terms_page <- function(top_terms, page = 1, rows = 1, columns = 1) {
         plot <- top_terms %>%
-                mutate(term = reorder(term, beta)) %>%
+                mutate(term = reorder(term, beta)) %>%                
                 ggplot(aes(term, beta, fill = factor(topic))) +
                 geom_col(show.legend = FALSE) +
-                facet_wrap(~ topic, scales = "free", ncol = 2) +
+                facet_wrap_paginate(~topic, scales = "free", ncol = columns, nrow = rows, page = page) +
                 coord_flip()        
+        return(plot)   
     }
 
     topic_top_terms <- function(topics, top_n_terms) {

@@ -9,8 +9,11 @@ scrubtweet <- function(tweet) {
 }
 
 analysis_pipeline(
-    file.path("data"),
-    file.path("analysis"),
-    "metoo",
-    scrubtweet
+    datapath = file.path("data"),
+    outputpath = file.path("analysis"),
+    outputprefix = "metoo",
+    scrubtweet = scrubtweet,
+    numbertopics = 5,
+    termspertopic = 10,
+    minimumtermcount = 1000
 )

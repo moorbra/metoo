@@ -4,6 +4,7 @@ library(tidyr)
 library(stringr)
 library(lubridate)
 library(ggplot2)
+library(ggforce)
 
 if (!exists("loaddatatask")){
     loaddatatask <- T
@@ -19,7 +20,7 @@ if (!exists("loaddatatask")){
 
             visualization <- ggplot(tweet_post_count, aes(hour, n, fill = day)) +
                              geom_col(show.legend = TRUE) +
-                             facet_wrap(~ group, ncol = 1, scales = "free_x")     
+                             facet_wrap_paginate(~ group, ncol = 1, scales = "free_x")     
 
             return(visualization)                       
         }
