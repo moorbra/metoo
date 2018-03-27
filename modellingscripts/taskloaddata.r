@@ -29,8 +29,8 @@ if (!exists("loaddatatask")){
             tweets <- read_csv(datafile)
             tweets <- tweets %>%
                     mutate(origtweet = tweet) %>%
-                    mutate(tweet = scrubtweet(tweet)) %>%
-                    mutate(date = mdy_hm(date))
+                    mutate(tweet = scrubtweet(tweet)) #%>%
+                    #mutate(date = mdy_hm(date))
 
             return(tweets)
         }

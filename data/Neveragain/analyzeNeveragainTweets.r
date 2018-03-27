@@ -19,7 +19,7 @@ analysis_pipeline(
     termspertopic = 15,
     topiccolumns = 2,
     topicrows = 2,
-    minimumtermcount = 1000,
+    minimumtermcount = 500,
     includesentiment = TRUE,
     includetopicmodel = TRUE,
     includetermfrequency = TRUE

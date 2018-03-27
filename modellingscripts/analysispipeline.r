@@ -14,25 +14,35 @@ if (!exists("analysispipeline")){
         outputprefix <<- outputprefix
         
         # Load the tweets
+        print("Loading tweets ..... ")
         tweets <- task_loaddata(datapath, ".csv", scrubtweet)
         save_output(tweets, "tweets.csv")
         tweet_post_histogram <- task_tweet_post_histogram(tweets)
         save_visualization(tweet_post_histogram, "post_histogram.png")
+        print("Done")
         
         # Tokenize
+        print("Tokenizing tweets ..... ")
         tweets_tokens <- task_tokenize(tweets, customstopwordspath, stopwordspath, synonymfilepath)
         save_output(tweets_tokens, "tokens.csv")
-        
+        print("Done")
+
         if(includesentiment) {
+            print("Analyzing for sentiment ..... ")
             performsentimentanalysis(tweets_tokens)
+            print("Done")
         }
 
         if(includetermfrequency) {
+            print("Counting term frequency ..... ")
             computetermfrequency(tweets_tokens, minimumtermcount)
+            print("Done")
         }
         
         if(includetopicmodel) {
+            print("Creating topic model ..... ")
             createldatopicmodel(tweets_tokens, numbertopics, termspertopic, topicrows, topiccolumns)
+            print("Done")
         }
     }
 

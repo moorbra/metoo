@@ -1,11 +1,33 @@
 library(twitteR)
+library(dplyr)
+library(lubridate)
 
-consumer_key <- "OQMbUsBfWQ1mVUGASpSArbG33"
-consumer_secret <- "GQ5kc0BlwJZE2FYyvv8cxn845z32ES6HsID87cawkQ075jwyIy"
-access_token <- "4338966852-lBmLvEg9mADHIdjK2hT4W5mtHmI9jRKxcV4PTrB"
-access_secret <- "AwKRZw9AvTMvMrb2jouX5JHTjDASI3zeceVsemgQa1SSq"
+# Change the next four lines based on your own consumer_key, consume_secret, access_token, and access_secret. 
+consumer_key <- "NzA2a09uXVo3YqIXqHP4AgX9s"
+consumer_secret <- "ibtaRGJ2dQNT6aWQOKQ53aYPO7t62Xa2cYMFDPLkRvVDeAMa9p"
+access_token <- "171349116-MXV8Ap3H2tJsjqRNJrMmDudVAehd3LfJfXIabN9K"
+access_secret <- "hssmpWn7tsSLh52C34JnpkHT6q65bgcnUf3UtJNbbJ0K4"
 
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
-tw = searchTwitter('#realDonaldTrump + #HillaryClinton', n = 1e4, since = '2016-11-08', retryOnRateLimit = 1e3)
-d = twListToDF(tw)
+
+tweets <- searchTwitter(
+    "#neveragain", 
+    n=18000, 
+    lang="en", 
+    since="2017-03-01", 
+    retryOnRateLimit=30,
+    resultType="mixed")
+
+# Transform tweets list into a data frame
+tweets.df <- twListToDF(tweets)
+
+#print(tweets.df)
+tweets.df <- tweets.df %>%
+             mutate(id = row_number()) %>%
+             mutate(tweet = text) %>%
+             mutate(date = created) %>%
+             select(id, tweet, date)
+write.csv(tweets.df, "neveragain.csv", row.names = FALSE)
+print("Like done man!")
+
