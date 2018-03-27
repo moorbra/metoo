@@ -13,7 +13,7 @@ setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
 tweets <- searchTwitter(
     "#neveragain", 
-    n=18000, 
+    n=50000, 
     lang="en", 
     since="2017-03-01", 
     retryOnRateLimit=30,
@@ -27,7 +27,5 @@ tweets.df <- tweets.df %>%
              mutate(id = row_number()) %>%
              mutate(tweet = text) %>%
              mutate(date = created) %>%
-             select(id, tweet, date)
+             select(id, tweet, date, screenName, retweetCount, isRetweet, retweeted, favoriteCount)
 write.csv(tweets.df, "neveragain.csv", row.names = FALSE)
-print("Like done man!")
-
