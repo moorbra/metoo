@@ -1,1 +1,1 @@
-docker run -ti --rm -v c:/topicmodelling/metoo:/home/docker -w /home/docker metoo bash
+docker run -ti --rm -v c:/topicmodelling/metoo:/home/docker -w /home/docker rtweet bash

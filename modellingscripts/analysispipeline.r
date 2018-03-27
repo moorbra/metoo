@@ -2,9 +2,12 @@ if (!exists("analysispipeline")){
     analysispipeline <- T
     
     analysis_pipeline <- function(datapath, outputpath, outputprefix, 
-        scrubtweet = scrubscrubtweet_default,
+        scrubtweet = scrubscrubtweet_default, 
+        customstopwordspath = "", synonymfilepath = "",
         numbertopics = 5, termspertopic = 10, topiccolumns = 1, topicrows = 1,
-        minimumtermcount = 500) {
+        minimumtermcount = 500,
+        includesentiment = TRUE, includetopicmodel = TRUE, 
+        includetermfrequency = TRUE) {
         
         datapath <- datapath
         outputpath <<- outputpath
@@ -14,26 +17,40 @@ if (!exists("analysispipeline")){
         tweets <- task_loaddata(datapath, ".csv", scrubtweet)
         save_output(tweets, "tweets.csv")
         tweet_post_histogram <- task_tweet_post_histogram(tweets)
-        #save_output(tweet_post_histogram, "histogram.csv")
         save_visualization(tweet_post_histogram, "post_histogram.png")
         
         # Tokenize
-        tweets_tokens <- task_tokenize(tweets, file.path("custom_stop_words.txt"))
+        tweets_tokens <- task_tokenize(tweets, customstopwordspath, stopwordspath, synonymfilepath)
         save_output(tweets_tokens, "tokens.csv")
         
-        # Perform sentiment analysis
+        if(includesentiment) {
+            performsentimentanalysis(tweets_tokens)
+        }
+
+        if(includetermfrequency) {
+            computetermfrequency(tweets_tokens, minimumtermcount)
+        }
+        
+        if(includetopicmodel) {
+            createldatopicmodel(tweets_tokens, numbertopics, termspertopic, topicrows, topiccolumns)
+        }
+    }
+
+    performsentimentanalysis <- function(tweets_tokens) {
         sentiment <- task_sentimentanalysis(tweets_tokens)
         save_output(sentiment, "sentiment.csv")
         sentiment_visualization <- task_visualizesentiment(sentiment)
         save_visualization(sentiment_visualization, "sentiment.png")
+    }
 
-        # Compute term frequency
+    computetermfrequency <- function(tweets_tokens, minimumtermcount) {
         term_frequency <- task_computetermfrequency(tweets_tokens)
         save_output(term_frequency, "term_frequency.csv")
         term_frequency_plot <- task_plottermfrequency(term_frequency, minimumtermcount)
         save_visualization(term_frequency_plot, "term_frequency.png")
-        
-        # Create a topic model
+    }
+
+    createldatopicmodel <- function(tweets_tokens, numbertopics, termspertopic, topicrows, topiccolumns) {
         ldatopicmodel <- task_extracttopics(tweets_tokens, numbertopics, save_output)
         topics_visualization <- task_visualizetopics(ldatopicmodel, 
             top_n_terms = termspertopic, 

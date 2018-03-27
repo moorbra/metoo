@@ -9,9 +9,19 @@ scrubtweet <- function(tweet) {
 }
 
 analysis_pipeline(
-    file.path("data"),
-    file.path("analysis"),
-    "neveragain",
-    scrubtweet
+    datapath = file.path("data"),
+    outputpath = file.path("analysis"),
+    customstopwordspath = file.path("custom_stop_words.txt"),
+    #synonymfilepath = file.path("synonyms.txt"),
+    outputprefix = "neveragain",
+    scrubtweet = scrubtweet,
+    numbertopics = 20,
+    termspertopic = 15,
+    topiccolumns = 2,
+    topicrows = 2,
+    minimumtermcount = 1000,
+    includesentiment = TRUE,
+    includetopicmodel = TRUE,
+    includetermfrequency = TRUE
 )
 

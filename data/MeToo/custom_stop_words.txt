@@ -38,3 +38,10 @@ es
 https
 le
 les
+60_
+50_
+6
+hey
+x3
+78
+20

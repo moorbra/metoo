@@ -11,11 +11,16 @@ scrubtweet <- function(tweet) {
 analysis_pipeline(
     datapath = file.path("data"),
     outputpath = file.path("analysis"),
+    customstopwordspath = file.path("custom_stop_words.txt"),
+    synonymfilepath = file.path("synonyms.txt"),
     outputprefix = "metoo",
     scrubtweet = scrubtweet,
     numbertopics = 20,
     termspertopic = 15,
-    topiccolumns = 1,
-    topicrows = 1,
-    minimumtermcount = 1000
+    topiccolumns = 2,
+    topicrows = 2,
+    minimumtermcount = 1000,
+    includesentiment = TRUE,
+    includetopicmodel = TRUE,
+    includetermfrequency = TRUE
 )

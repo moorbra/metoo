@@ -23,8 +23,7 @@ if (!exists("taskldatopicmodelling")){
     }
 
     plot_top_terms <- function(top_terms, page = 1, rows = 1, columns = 1, save) {
-        number_pages <- number_topcs / (rows * columns)
-        number_pages <- if(number_pages %% 2 > 0) number_pages + 1 else number_pages
+        number_pages <- ceiling(number_topcs / (rows * columns))
         for(page in 1:number_pages) {
             plot <- plot_top_terms_page(top_terms, page, rows, columns)
             save(plot, paste("topicsvisualization_", page, ".png", sep = ""))

@@ -18,8 +18,8 @@ if (!exists("sentimentanalysistext")){
 
     task_visualizesentiment <- function(tweet_sentiment) {
         visualization <- ggplot(tweet_sentiment, aes(index, sentiment, fill = group)) +
-            geom_col(show.legend = FALSE) #+
-            #facet_wrap(~ group, ncol = 2, scales = "free_x")
+            geom_col(show.legend = FALSE) +
+            facet_wrap(~group, ncol = 2, scales = "free_x")
         
         return(visualization)
     }

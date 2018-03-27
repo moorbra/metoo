@@ -10,4 +10,5 @@ RUN apt-get update \
     && Rscript -e "install.packages('tidytext')" \
     && Rscript -e "install.packages('tm')" \
     && Rscript -e "install.packages('topicmodels')" \
-    && Rscript -e "install.packages('ggforce')"
+    && Rscript -e "install.packages('ggforce')" \
+    && Rscript -e "install.packages('twitteR')"
