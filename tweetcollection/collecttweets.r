@@ -12,8 +12,8 @@ setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
 
 tweets <- searchTwitter(
-    "#neveragain", 
-    n=10000, 
+    "#marchforourlives", 
+    n=100000, 
     lang="en", 
     since="2018-02-13", 
     retryOnRateLimit=30,
@@ -28,4 +28,4 @@ tweets.df <- tweets.df %>%
              mutate(tweet = text) %>%
              mutate(date = created) %>%
              select(id, tweet, date, screenName, retweetCount, isRetweet, retweeted, favoriteCount)
-write.csv(tweets.df, "neveragain.csv", row.names = FALSE)
+write.csv(tweets.df, "marchforourlives.csv", row.names = FALSE)

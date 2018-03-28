@@ -90,4 +90,10 @@ if (!exists("analysispipeline")){
     scrubtweet_default <- function(tweet) {
         return (tweet)
     }
+
+    zip_analysis <- function(outputpath, outputprefx) {
+        files2zip <- dir(path = outputpath, pattern = "[.png|.csv]$", full.names = TRUE)
+        zip(zipfile = paste(outputpath, paste(outputprefx,format(Sys.time(), "%m%d%Y%H%M%S"), sep = "_"), sep = "/"), files = files2zip)
+        file.remove(files2zip)
+    }
 }

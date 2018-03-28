@@ -28,3 +28,5 @@ analysis_pipeline(
     sentimentcolumns = 1
 )
 
+zip_analysis(file.path("analysis"), "neveragain")
+
