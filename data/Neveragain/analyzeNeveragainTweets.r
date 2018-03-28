@@ -19,9 +19,12 @@ analysis_pipeline(
     termspertopic = 15,
     topiccolumns = 2,
     topicrows = 2,
-    minimumtermcount = 500,
+    minimumtermcount = 3000,
     includesentiment = TRUE,
     includetopicmodel = TRUE,
-    includetermfrequency = TRUE
+    includetermfrequency = TRUE,
+    includetweetposthistogram = FALSE,
+    sentimentrows = 4,
+    sentimentcolumns = 1
 )
 

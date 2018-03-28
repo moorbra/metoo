@@ -5,9 +5,11 @@ if (!exists("analysispipeline")){
         scrubtweet = scrubscrubtweet_default, 
         customstopwordspath = "", synonymfilepath = "",
         numbertopics = 5, termspertopic = 10, topiccolumns = 1, topicrows = 1,
+        sentimentrows = 1, sentimentcolumns = 1,
         minimumtermcount = 500,
         includesentiment = TRUE, includetopicmodel = TRUE, 
-        includetermfrequency = TRUE) {
+        includetermfrequency = TRUE,
+        includetweetposthistogram = TRUE) {
         
         datapath <- datapath
         outputpath <<- outputpath
@@ -17,9 +19,13 @@ if (!exists("analysispipeline")){
         print("Loading tweets ..... ")
         tweets <- task_loaddata(datapath, ".csv", scrubtweet)
         save_output(tweets, "tweets.csv")
-        tweet_post_histogram <- task_tweet_post_histogram(tweets)
-        save_visualization(tweet_post_histogram, "post_histogram.png")
         print("Done")
+
+        if(includetweetposthistogram) {
+            print("Creating tweet post histogram ..... ")
+            createtweetposthistogram(tweets)
+            print("Done")
+        }
         
         # Tokenize
         print("Tokenizing tweets ..... ")
@@ -29,7 +35,7 @@ if (!exists("analysispipeline")){
 
         if(includesentiment) {
             print("Analyzing for sentiment ..... ")
-            performsentimentanalysis(tweets_tokens)
+            performsentimentanalysis(tweets_tokens, sentimentrows, sentimentcolumns)
             print("Done")
         }
 
@@ -46,11 +52,15 @@ if (!exists("analysispipeline")){
         }
     }
 
-    performsentimentanalysis <- function(tweets_tokens) {
+    createtweetposthistogram <- function(tweets) {
+        tweet_post_histogram <- task_tweet_post_histogram(tweets)
+        save_visualization(tweet_post_histogram, "post_histogram.png")
+    }
+
+    performsentimentanalysis <- function(tweets_tokens, sentimentrows, sentimentcolumns) {
         sentiment <- task_sentimentanalysis(tweets_tokens)
         save_output(sentiment, "sentiment.csv")
-        sentiment_visualization <- task_visualizesentiment(sentiment)
-        save_visualization(sentiment_visualization, "sentiment.png")
+        sentiment_visualization <- task_visualizesentiment(sentiment, sentimentrows, sentimentcolumns, save_visualization)        
     }
 
     computetermfrequency <- function(tweets_tokens, minimumtermcount) {

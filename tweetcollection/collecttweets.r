@@ -13,9 +13,9 @@ setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
 tweets <- searchTwitter(
     "#neveragain", 
-    n=50000, 
+    n=10000, 
     lang="en", 
-    since="2017-03-01", 
+    since="2018-02-13", 
     retryOnRateLimit=30,
     resultType="mixed")
 
