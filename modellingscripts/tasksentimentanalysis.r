@@ -18,11 +18,15 @@ if (!exists("sentimentanalysistext")){
     }
 
     task_visualizesentiment <- function(tweet_sentiment, rows = 1, columns = 1, save) {
-        number_pages <- ceiling(length(tweet_sentiment) / (rows * columns))
+        sentimentgroups <- tweet_sentiment %>% group_by(group) %>% summarize(count=n())
+        number_pages <- ceiling(nrow(sentimentgroups) / (rows * columns))
+        print("Generating sentiment plots ....")
         for(page in 1:number_pages) {
+            print(paste("Plot", page, "of", number_pages, sep=" "))
             plot <- plot_sentiment(tweet_sentiment, page, rows, columns)
             save(plot, paste("sentimentvisualization_", page, ".png", sep = ""))
         }
+        print("Done")
     }
 
     plot_sentiment <- function(tweet_sentiment, page = 1, rows = 1, columns = 1) {

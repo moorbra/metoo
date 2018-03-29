@@ -24,3 +24,5 @@ analysis_pipeline(
     includetopicmodel = TRUE,
     includetermfrequency = TRUE
 )
+
+zip_analysis(file.path("analysis"), "metoo")

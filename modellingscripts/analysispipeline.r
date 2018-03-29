@@ -53,8 +53,7 @@ if (!exists("analysispipeline")){
     }
 
     createtweetposthistogram <- function(tweets) {
-        tweet_post_histogram <- task_tweet_post_histogram(tweets)
-        save_visualization(tweet_post_histogram, "post_histogram.png")
+        tweet_post_histogram <- task_tweet_post_histogram(tweets, save_visualization)
     }
 
     performsentimentanalysis <- function(tweets_tokens, sentimentrows, sentimentcolumns) {
@@ -92,7 +91,7 @@ if (!exists("analysispipeline")){
     }
 
     zip_analysis <- function(outputpath, outputprefx) {
-        files2zip <- dir(path = outputpath, pattern = "[.png|.csv]$", full.names = TRUE)
+        files2zip <- dir(path = outputpath, pattern = ".png$|.csv$", full.names = TRUE)
         zip(zipfile = paste(outputpath, paste(outputprefx,format(Sys.time(), "%m%d%Y%H%M%S"), sep = "_"), sep = "/"), files = files2zip)
         file.remove(files2zip)
     }
