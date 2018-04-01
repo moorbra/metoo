@@ -20,19 +20,17 @@ if (!exists("sentimentanalysistext")){
     task_visualizesentiment <- function(tweet_sentiment, rows = 1, columns = 1, save) {
         sentimentgroups <- tweet_sentiment %>% group_by(group) %>% summarize(count=n())
         number_pages <- ceiling(nrow(sentimentgroups) / (rows * columns))
-        print("Generating sentiment plots ....")
         for(page in 1:number_pages) {
-            print(paste("Plot", page, "of", number_pages, sep=" "))
+            print(paste("Creating sentiment plot", page, "of", number_pages, sep=" "))
             plot <- plot_sentiment(tweet_sentiment, page, rows, columns)
             save(plot, paste("sentimentvisualization_", page, ".png", sep = ""))
         }
-        print("Done")
     }
 
     plot_sentiment <- function(tweet_sentiment, page = 1, rows = 1, columns = 1) {
         visualization <- ggplot(tweet_sentiment, aes(index, sentiment, fill = group)) +
             geom_col(show.legend = FALSE) +
-            labs(x = "minute") +
+            labs(x = "minute", y = "sentiment") +
             facet_wrap_paginate(~group, scales = "free_x", ncol = columns, nrow = rows, page = page)
         
         return(visualization)        

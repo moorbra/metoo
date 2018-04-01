@@ -1,10 +1,12 @@
 sapply(list.files(pattern="[.]r$", path="../../modellingscripts", full.names=TRUE), source);
 
 scrubtweet <- function(tweet) {
-    patterns <- c("[@]\\w+[ ,.:]?|\\n|[?_#.]{2,}|&amp;|[\"]|http[s?]://\\w+.\\w+[/\\w+]{0,}|^RT")
+    patterns <- c("[@]\\w+[ ,.:]?|[?_#.]{2,}|&amp;|[\"]|http[s?]://\\w+.\\w+[/\\w+]{0,}|^RT")
     tweet <- str_replace_all(tweet, patterns, "")
-    tweet <- str_replace_all(tweet, "[ ]{2,}"," ")
+    tweet <- str_replace_all(tweet, "[ ]{2,}|[.]|\\n|[.]{3}"," ")
     tweet <- str_replace_all(tweet, "^[ ]{1,}|[ ]{1,}$","")
+    tweet <- str_replace_all(tweet, "['`]", "'")
+    tweet <- str_replace_all(tweet, "[Ff]eb[.][ ]14", "Feb14")
     return (tweet)
 }
 
@@ -12,7 +14,7 @@ analysis_pipeline(
     datapath = file.path("data"),
     outputpath = file.path("analysis"),
     customstopwordspath = file.path("custom_stop_words.txt"),
-    #synonymfilepath = file.path("synonyms.txt"),
+    synonymfilepath = file.path("synonyms.txt"),
     outputprefix = "marchlives",
     scrubtweet = scrubtweet,
     numbertopics = 20,
@@ -21,11 +23,13 @@ analysis_pipeline(
     topicrows = 2,
     minimumtermcount = 3000,
     includesentiment = TRUE,
-    includetopicmodel = FALSE,
+    includetopicmodel = TRUE,
     includetermfrequency = TRUE,
     includetweetposthistogram = TRUE,
     sentimentrows = 4,
-    sentimentcolumns = 1
+    sentimentcolumns = 1,
+    histogramrows = 2,
+    histogramcolumns = 2
 )
 
 zip_analysis(file.path("analysis"), "marchlives")

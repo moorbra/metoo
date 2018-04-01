@@ -1,0 +1,35 @@
+word,replacement
+alton,altonsterling
+sterling,altonsterling
+parklandshootin,parkland
+stoneman,stonemandouglas
+douglas,stonemandouglas
+emma,emmagonzales
+gonzales,emmagonzales
+gonzalez,emmagonzales
+naomi,naomiwadler
+wadler,naomiwadler
+david,davidhogg
+hogg,davidhogg
+hoggs,davidhogg
+atta,attack
+attacking,attack
+attacked,attack
+attacks,attack
+attackin,attack
+alt,altright
+10,10reasonstomarchforourlives
+tomorro,tomorrow
+Mar-a-Lago,mar_a_lago
+Mar a Lago,mar_a_lago
+mar-a-Lago,mar_a_lago
+"mar a Lago",mar_a_lago
+rt,retweet
+RT,retweet
+3,Mar24
+VA,Virginia
+va,Virginia
+beau,beautiful
+guns,gun
+2a,secondamendment
+2nd,secondamendment

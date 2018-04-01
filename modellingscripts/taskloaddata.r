@@ -14,26 +14,25 @@ if (!exists("loaddatatask")){
             return(loadTweets(datafilepath, filepattern))
         }
 
-        task_tweet_post_histogram <- function(tweets, save) {
+        task_tweet_post_histogram <- function(tweets, rows = 1, columns = 1, save) {
             tweet_post_count <- tweets %>%
                                 count(group = paste(month(date), day(date), year(date), sep="/"), hour = hour(date))
 
             groups <- tweet_post_count %>% group_by(group) %>% summarize(count=n())
-            number_pages <- nrow(groups)
+            number_pages <- ceiling(nrow(groups) / (rows * columns))
             
-            print("Generating histogram plots ....")
             for(page in 1:number_pages) {
-                print(paste("Plot", page, "of", number_pages, sep=" "))
-                plot <- plot_tweet_histogram(tweet_post_count, page)
+                print(paste("Generating histogtram plot", page, "of", number_pages, sep=" "))
+                plot <- plot_tweet_histogram(tweet_post_count, page, rows, columns)
                 save(plot, paste("posthistogram_", page, ".png", sep = ""))
             }
-            print("Done")            
         }
 
-        plot_tweet_histogram <- function(tweet_post_count, page = 1) {
+        plot_tweet_histogram <- function(tweet_post_count, page = 1, rows = 1, columns = 1) {
             visualization <- ggplot(tweet_post_count, aes(hour, n, fill = group)) +
                              geom_col(show.legend = FALSE) +
-                             facet_wrap_paginate(~ group, page = page, nrow = 1, ncol = 1, scales = "free_x")     
+                             labs(x = "Hour", y = "Tweets") +
+                             facet_wrap_paginate(~ group, page = page, nrow = rows, ncol = columns, scales = "free_x")     
 
             return(visualization)                       
         }
@@ -42,8 +41,7 @@ if (!exists("loaddatatask")){
             tweets <- read_csv(datafile)
             tweets <- tweets %>%
                     mutate(origtweet = tweet) %>%
-                    mutate(tweet = scrubtweet(tweet)) #%>%
-                    #mutate(date = mdy_hm(date))
+                    mutate(tweet = scrubtweet(tweet))
 
             return(tweets)
         }

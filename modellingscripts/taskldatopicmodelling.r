@@ -18,13 +18,13 @@ if (!exists("taskldatopicmodelling")){
 
     task_visualizetopics <- function(topics, top_n_terms, rows = 1, columns = 1, save) {
         top_terms <- topic_top_terms(topics, top_n_terms)
-        plots <- plot_top_terms(top_terms, rows = rows, columns = columns, save = save)
-        return(plots)
+        plot_top_terms(top_terms, rows = rows, columns = columns, save = save)
     }
 
     plot_top_terms <- function(top_terms, page = 1, rows = 1, columns = 1, save) {
         number_pages <- ceiling(number_topcs / (rows * columns))
         for(page in 1:number_pages) {
+            print(paste("Creating topic model plot", page, "of", number_pages, sep = " "))
             plot <- plot_top_terms_page(top_terms, page, rows, columns)
             save(plot, paste("topicsvisualization_", page, ".png", sep = ""))
         }

@@ -6,6 +6,7 @@ if (!exists("analysispipeline")){
         customstopwordspath = "", synonymfilepath = "",
         numbertopics = 5, termspertopic = 10, topiccolumns = 1, topicrows = 1,
         sentimentrows = 1, sentimentcolumns = 1,
+        histogramrows = 1, histogramcolumns = 1,
         minimumtermcount = 500,
         includesentiment = TRUE, includetopicmodel = TRUE, 
         includetermfrequency = TRUE,
@@ -16,50 +17,47 @@ if (!exists("analysispipeline")){
         outputprefix <<- outputprefix
         
         # Load the tweets
-        print("Loading tweets ..... ")
+        log("Loading tweets ..... ")
         tweets <- task_loaddata(datapath, ".csv", scrubtweet)
         save_output(tweets, "tweets.csv")
-        print("Done")
 
         if(includetweetposthistogram) {
-            print("Creating tweet post histogram ..... ")
-            createtweetposthistogram(tweets)
-            print("Done")
+            createtweetposthistogram(tweets, histogramrows, histogramcolumns)
         }
         
-        # Tokenize
-        print("Tokenizing tweets ..... ")
+        log("Tokenizing tweets ..... ")
         tweets_tokens <- task_tokenize(tweets, customstopwordspath, stopwordspath, synonymfilepath)
         save_output(tweets_tokens, "tokens.csv")
-        print("Done")
 
         if(includesentiment) {
-            print("Analyzing for sentiment ..... ")
+            log("Analyzing for sentiment ..... ")
             performsentimentanalysis(tweets_tokens, sentimentrows, sentimentcolumns)
-            print("Done")
         }
 
         if(includetermfrequency) {
-            print("Counting term frequency ..... ")
+            log("Counting term frequency ..... ")
             computetermfrequency(tweets_tokens, minimumtermcount)
-            print("Done")
         }
         
         if(includetopicmodel) {
-            print("Creating topic model ..... ")
+            log("Creating topic model ..... ")
             createldatopicmodel(tweets_tokens, numbertopics, termspertopic, topicrows, topiccolumns)
-            print("Done")
+            log("Finished topic model")
         }
     }
 
-    createtweetposthistogram <- function(tweets) {
-        tweet_post_histogram <- task_tweet_post_histogram(tweets, save_visualization)
+    log <- function(message) {
+        print(paste(Sys.time(), message))
+    }
+
+    createtweetposthistogram <- function(tweets, rows, columns) {
+        task_tweet_post_histogram(tweets, rows, columns, save_visualization)
     }
 
     performsentimentanalysis <- function(tweets_tokens, sentimentrows, sentimentcolumns) {
         sentiment <- task_sentimentanalysis(tweets_tokens)
         save_output(sentiment, "sentiment.csv")
-        sentiment_visualization <- task_visualizesentiment(sentiment, sentimentrows, sentimentcolumns, save_visualization)        
+        task_visualizesentiment(sentiment, sentimentrows, sentimentcolumns, save_visualization)        
     }
 
     computetermfrequency <- function(tweets_tokens, minimumtermcount) {

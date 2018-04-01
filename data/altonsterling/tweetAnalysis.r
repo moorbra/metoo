@@ -12,20 +12,22 @@ analysis_pipeline(
     datapath = file.path("data"),
     outputpath = file.path("analysis"),
     customstopwordspath = file.path("custom_stop_words.txt"),
-    #synonymfilepath = file.path("synonyms.txt"),
+    synonymfilepath = file.path("synonyms.txt"),
     outputprefix = "altonsterling",
     scrubtweet = scrubtweet,
     numbertopics = 20,
     termspertopic = 15,
     topiccolumns = 2,
     topicrows = 2,
-    minimumtermcount = 3000,
+    minimumtermcount = 50,
     includesentiment = TRUE,
     includetopicmodel = TRUE,
     includetermfrequency = TRUE,
     includetweetposthistogram = TRUE,
     sentimentrows = 4,
-    sentimentcolumns = 1
+    sentimentcolumns = 1,
+    histogramrows = 2,
+    histogramcolumns = 2    
 )
 
 zip_analysis(file.path("analysis"), "marchlives")
