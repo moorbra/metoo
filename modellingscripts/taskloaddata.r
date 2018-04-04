@@ -44,6 +44,7 @@ if (!exists("loaddatatask")){
         loadtweetfile <- function(datafile) {
             tweets <- read_csv(datafile)
             tweets <- tweets %>%
+                    mutate(date = format(date, tz="America/Chicago")) %>%
                     mutate(origtweet = tweet) %>%
                     mutate(tweet = scrubtweet(iconv(tweet, "ASCII", "UTF-8", sub="")))
 

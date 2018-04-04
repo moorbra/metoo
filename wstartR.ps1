@@ -1,1 +1,1 @@
-docker run -ti --rm -v c:/topicmodelling/metoo:/home/docker -w /home/docker -p 1410:80 rtweet bash
+docker run -ti --rm -v c:/topicmodelling/metoo:/home/docker -w /home/docker rtweet bash

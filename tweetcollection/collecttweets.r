@@ -15,8 +15,8 @@ tweets <- searchTwitter(
     "#marchforourlives", 
     n=500000, 
     lang="en", 
-    since="2018-03-27",
-    until="2018-03-28",
+    since="2018-03-28",
+    until="2018-03-29",
     retryOnRateLimit=30,
     resultType="mixed")
 
@@ -29,4 +29,4 @@ tweets.df <- tweets.df %>%
              mutate(date = created) %>%
              select(id, tweet, date, screenName, retweetCount, isRetweet, retweeted, favoriteCount)
 
-write.csv(tweets.df, "marchforlives03272018.csv", row.names = FALSE)
+write.csv(tweets.df, "marchforlives03282018.csv", row.names = FALSE)
