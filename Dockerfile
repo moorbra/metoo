@@ -14,4 +14,6 @@ RUN apt-get update \
     && Rscript -e "install.packages('topicmodels')" \
     && Rscript -e "install.packages('ggforce')" \
     && Rscript -e "install.packages('curl')" \
-    && Rscript -e "install.packages('twitteR')"
+    && Rscript -e "install.packages('twitteR')" \
+    && Rscript -e "install.packages('rtweet')" \
+    && Rscript -e "install.packages('httpuv')"

@@ -3,6 +3,7 @@ if (!exists("analysispipeline")){
     
     analysis_pipeline <- function(datapath, outputpath, outputprefix, 
         scrubtweet = scrubscrubtweet_default, 
+        distincttweets = FALSE,
         customstopwordspath = "", synonymfilepath = "",
         numbertopics = 5, termspertopic = 10, topiccolumns = 1, topicrows = 1,
         sentimentrows = 1, sentimentcolumns = 1,
@@ -18,7 +19,7 @@ if (!exists("analysispipeline")){
         
         # Load the tweets
         log("Loading tweets ..... ")
-        tweets <- task_loaddata(datapath, ".csv", scrubtweet)
+        tweets <- task_loaddata(datapath, ".csv", scrubtweet, distincttweets)
         save_output(tweets, "tweets.csv")
 
         if(includetweetposthistogram) {

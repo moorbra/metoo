@@ -1,4 +1,6 @@
 .vscode
 .DS_Store
 *.pdf
-*.zip
+*.png
+data/**/analysis/*.png
+data/**/analysis/*.csv

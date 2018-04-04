@@ -9,9 +9,13 @@ library(ggforce)
 if (!exists("loaddatatask")){
     loaddatatask <- T
 
-        task_loaddata <- function(datafilepath, filepattern, scrub = scrubtweet_default) {
+        task_loaddata <- function(datafilepath, filepattern, scrub = scrubtweet_default, distincttweets = FALSE) {
             scrubtweet <<- scrub
-            return(loadTweets(datafilepath, filepattern))
+            tweets = loadTweets(datafilepath, filepattern)
+            if(distincttweets) {
+                return(distinct(tweets, tweet, .keep_all=TRUE))
+            }                         
+            return(tweets)
         }
 
         task_tweet_post_histogram <- function(tweets, rows = 1, columns = 1, save) {
@@ -41,7 +45,7 @@ if (!exists("loaddatatask")){
             tweets <- read_csv(datafile)
             tweets <- tweets %>%
                     mutate(origtweet = tweet) %>%
-                    mutate(tweet = scrubtweet(tweet))
+                    mutate(tweet = scrubtweet(iconv(tweet, "ASCII", "UTF-8", sub="")))
 
             return(tweets)
         }

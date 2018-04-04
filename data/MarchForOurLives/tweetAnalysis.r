@@ -29,7 +29,8 @@ analysis_pipeline(
     sentimentrows = 4,
     sentimentcolumns = 1,
     histogramrows = 2,
-    histogramcolumns = 2
+    histogramcolumns = 2,
+    distincttweets = FALSE
 )
 
 zip_analysis(file.path("analysis"), "marchlives")
