@@ -1,4 +1,4 @@
-sapply(list.files(pattern="[.]r$", path="../../modellingscripts", full.names=TRUE), source);
+sapply(list.files(pattern="[.]r$", path="../../RModelling/modellingscripts", full.names=TRUE), source);
 
 scrubtweet <- function(tweet) {
     patterns <- c("[@]\\w+[ ,.:]?|\\n|[?_#.]{2,}|&amp;|[\"]|http[s?]://\\w+.\\w+[/\\w+]{0,}|^RT")

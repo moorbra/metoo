@@ -1,0 +1,1 @@
+docker run -ti --rm -v c:/topicmodelling/metoo/data:/models/data -v c:/topicmodelling/metoo/PythonModelling:/models/PythonModelling -w /models python bash
