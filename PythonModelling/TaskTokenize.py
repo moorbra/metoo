@@ -1,9 +1,9 @@
+from Task import Task
 import pandas as pd
-import os
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 
-class TaskTokenize:
+class TaskTokenize(Task):
 
     def __init__(self, custom_stop_words = []):
         self.tokenizer = TweetTokenizer(strip_handles=True, reduce_len=True)
@@ -12,10 +12,10 @@ class TaskTokenize:
     def tokenize_tweets(self, tweets_data_frame, text_column="tweet"):
         return tweets_data_frame.assign(tokens = tweets_data_frame[text_column].apply(lambda t: self.__tokenize_tweet(t)))
 
-    def save_tokens(self, tokenized_tweets, path_to_save, filename):
+    def pivot_tokens(self, tokenized_tweets, path_to_save, filename):
         pivoted_tokens = [ self.__pivot_tokens(getattr(row, "id"), getattr(row, "tokens")) for row in tokenized_tweets.itertuples()]
-        pivoted_tokens = pd.concat(pivoted_tokens, ignore_index=True)
-        pivoted_tokens.to_csv(os.path.join(path_to_save, filename), index = False)
+        return pd.concat(pivoted_tokens, ignore_index=True)
+        
 
     def __pivot_tokens(self, id, tokens):
         return pd.DataFrame([{ "id": id, "token": token } for token in tokens])

@@ -1,7 +1,8 @@
+from Task import Task
 from TopicModel import TopicModel
 from gensim.models import LdaModel
 
-class TaskLdaModel(TopicModel):
+class TaskLdaModel(TopicModel, Task):
 
     def __init__(self, number_topics = 10, number_terms = 10, number_passes = 50):
         super().__init__(number_topics, number_terms)

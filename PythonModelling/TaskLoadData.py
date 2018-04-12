@@ -1,8 +1,9 @@
+from Task import Task
 import pandas as pd
 import re
 import os
 
-class TaskLoadData:
+class TaskLoadData(Task):
 
     def __init__(self, scrub_function = None, data_path = "", extension_filter = ".csv"):
         self._scrub_function = scrub_function
