@@ -8,6 +8,7 @@ from TaskLdaModel import TaskLdaModel
 from TaskLsiModel import TaskLsiModel
 from TaskTermAnalysis import TaskTermAnalysis
 from Strategies.LDAStrategy import LDAStrategy
+from Strategies.TokenizationStrategy import TokenizationStrategy
 from pprintpp import pprint as pp
 import re
 import os
@@ -37,10 +38,11 @@ tweets_data_frame = load_data.load_data(text_column="tweet")
 load_data.save_data_frame(tweets_data_frame, analysis_file_path, "tweets.csv")
 
 # Tokenize the data
-custom_stop_words = set(["-", ":", ".", "?", " ", "*", ",", "%", "#", "|", "!", "ht", "htt", "https", "https://", ">", "<", "(", ")", "'", "the"])
-tokenizer = TaskTokenize()
-tokenized_tweets = tokenizer.tokenize_tweets(tweets_data_frame=tweets_data_frame, text_column="tweet", custom_stop_words=custom_stop_words)
-pp(tokenizer.stop_words)
+tokenization_strategy = TokenizationStrategy()
+tokenization_strategy.custom_stop_words = set(["-", ":", ".", "?", " ", "*", ",", "%", "#", "|", "!", "ht", "htt", "https", "https://", ">", "<", "(", ")", "'", "the"])
+
+tokenizer = TaskTokenize(tokenization_strategy)
+tokenized_tweets = tokenizer.tokenize_tweets(tweets_data_frame=tweets_data_frame, text_column="tweet")
 tokenizer.save_data_frame(tokenized_tweets, analysis_file_path, "tokenized_tweets.csv")
 
 # Analyze the tokens
@@ -53,14 +55,16 @@ plot.get_figure().savefig(os.path.join(analysis_file_path, "termfrequency.png"))
 
 # LDA Model
 pp("LDA Model")
-lda_strategy = LDAStrategy
-lda_strategy.number_passes = 100
+lda_strategy = LDAStrategy()
+lda_strategy.number_passes = 1
 lda_strategy.number_terms = 10
 lda_strategy.number_topics = 20
 ldamodel = TaskLdaModel(lda_strategy)
 ldamodel.create_model(tokenized_tweets["tokens"])
 ldatopics = ldamodel.get_topics()
 ldamodel.save_data_frame(ldatopics, analysis_file_path, "lda_topics.csv")
+document_topics = ldamodel.get_document_topics()
+pp(document_topics)
 
 # LSI Model
 # lsimodel = TaskLsiModel(number_topics=20, number_terms=5)
