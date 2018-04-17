@@ -5,11 +5,16 @@ from nltk.corpus import stopwords
 
 class TaskTokenize(Task):
 
-    def __init__(self, custom_stop_words = []):
-        self.tokenizer = TweetTokenizer(strip_handles=True, reduce_len=True)
-        self.__create_stop_words(custom_stop_words = custom_stop_words)
+    def __init__(self):
+        self.tokenizer = TweetTokenizer(strip_handles=True, reduce_len=True)        
+        self._stop_words = None
 
-    def tokenize_tweets(self, tweets_data_frame, text_column="tweet"):
+    @property
+    def stop_words(self):
+        return self._stop_words
+
+    def tokenize_tweets(self, tweets_data_frame, text_column="tweet", custom_stop_words = []):
+        self.__create_stop_words(custom_stop_words = custom_stop_words)
         return tweets_data_frame.assign(tokens = tweets_data_frame[text_column].apply(lambda t: self.__tokenize_tweet(t)))
 
     def pivot_tokens(self, tokenized_tweets, path_to_save, filename):
@@ -22,7 +27,7 @@ class TaskTokenize(Task):
 
     def __create_stop_words(self, custom_stop_words):        
         stop_words = set(stopwords.words('english'))
-        self.stop_words = stop_words.union(custom_stop_words)
+        self._stop_words = stop_words.union(custom_stop_words)
 
     def __tokenize_tweet(self, tweet):
         tokens = self.tokenizer.tokenize(tweet)
@@ -32,7 +37,7 @@ class TaskTokenize(Task):
 
     
     def __remove_stop_words(self, tokens):        
-        tokens = [t for t in tokens if not t in self.stop_words]
+        tokens = [t for t in tokens if not t in self._stop_words]
         return tokens
 
     def __apply_synonyms(self, tokens):

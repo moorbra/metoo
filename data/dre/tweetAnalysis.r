@@ -1,4 +1,4 @@
-sapply(list.files(pattern="[.]r$", path="../../RModelling", full.names=TRUE), source);
+sapply(list.files(pattern="[.]r$", path="../../RModelling/modellingscripts", full.names=TRUE), source);
 
 scrubtweet <- function(tweet) {
     patterns <- c("[@]\\w+[ ,.:]?|\\n|[?_#.]{2,}|&amp;|[\"]|http[s?]://\\w+.\\w+[/\\w+]{0,}|^RT")
@@ -30,5 +30,5 @@ analysis_pipeline(
     histogramcolumns = 2    
 )
 
-zip_analysis(file.path("analysis"), "altonsterling")
+zip_analysis(file.path("analysis"), "marchlives")
 

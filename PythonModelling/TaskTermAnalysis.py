@@ -9,6 +9,7 @@ class TaskTermAnalysis(Task):
 
     def plot_term_frequency(self, term_frequency_data_frame, minimum_occurrances=500):            
         sorted_filtered = term_frequency_data_frame.query(f"count>{minimum_occurrances}").sort_values(by=["count"])
-        plot = sorted_filtered.plot.barh()
+        plot = sorted_filtered.plot(kind="barh", figsize=(14,7))
         plot.set_yticklabels(sorted_filtered.term)
+        return plot
                 

@@ -1,16 +1,33 @@
 from gensim import corpora, models, similarities
 import pandas as pd
+from Strategies import AnalysisStrategy
 
 class TopicModel:
-    def __init__(self, number_topics = 10, number_terms = 10):
-        self._number_topics = number_topics
-        self._number_terms = number_terms
+    def __init__(self, analysisStrategy):
+        self._strategy = analysisStrategy
+        self._model = None
+
+    @property
+    def model(self):
+        return self._model
+
+    @model.setter
+    def model(self, value):
+        self._model = value
+
+    @property
+    def strategy(self):
+        return self._strategy
+
 
     def create_model(self, tokenized_tweets):
         return
 
+    def create_tfidf_model(self, corpus):
+        return models.TfidfModel(corpus)
+
     def get_topics(self):
-        topics = [self.__get_term_from_topic(topic[0], topic[1]) for topic in self.model.print_topics(self._number_topics, self._number_terms)]        
+        topics = [self.__get_term_from_topic(topic[0], topic[1]) for topic in self._model.print_topics(self._strategy.number_topics, self._strategy.number_terms)]        
         return pd.concat(topics, ignore_index = True)
 
     def __get_term_from_topic(self, topic_id, topic):
@@ -18,8 +35,9 @@ class TopicModel:
     
     def create_dictionary(self, tokenized_tweets):
         return corpora.Dictionary(tokenized_tweets)
-        #dictionary.save('tweets.dict')
     
     def create_corpus(self, tokenized_tweets, dictionary):
         return [dictionary.doc2bow(text) for text in tokenized_tweets]
-        #corpora.MmCorpus.serialize('tweets.mm', self.corpus)    
+        
+    def plot_topics(self, topics_data_frame):
+        return 

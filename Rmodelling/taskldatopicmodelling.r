@@ -12,7 +12,9 @@ if (!exists("taskldatopicmodelling")){
         dtm <- documenttermmatrix(wordcount)
         lda <- LDA(dtm, k = number_topcs, control = list(seed = 1234))
         topics <- tidy(lda, matrix = "beta")
+        documentprobs <- tidy(lda, matrix = "gamma")
         save(topics, "topics.csv")
+        save(documentprobs, "gamma.csv")
         return(topics)
     }
 
