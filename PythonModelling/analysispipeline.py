@@ -56,16 +56,21 @@ plot.get_figure().savefig(os.path.join(analysis_file_path, "termfrequency.png"))
 # LDA Model
 pp("LDA Model")
 lda_strategy = LDAStrategy()
-lda_strategy.number_passes = 1
+lda_strategy.number_passes = 100
 lda_strategy.number_terms = 10
 lda_strategy.number_topics = 20
+lda_strategy.minimum_probability = .90
+lda_strategy.tokens_column = "tokens"
+lda_strategy.text_column = "tweet"
 ldamodel = TaskLdaModel(lda_strategy)
-ldamodel.create_model(tokenized_tweets["tokens"])
+ldamodel.create_model(tokenized_tweets)
 ldatopics = ldamodel.get_topics()
 ldamodel.save_data_frame(ldatopics, analysis_file_path, "lda_topics.csv")
 document_topics = ldamodel.get_document_topics()
-pp(document_topics)
-
+ldamodel.save_data_frame(document_topics, analysis_file_path, "lda_document_topics.csv")
+topic_count = ldamodel.count_topic_occurances(document_topics_data_frame=document_topics)
+#pp(topic_count)
+ldamodel.save_data_frame(topic_count, analysis_file_path, "lda_topicdocument_count.csv")
 # LSI Model
 # lsimodel = TaskLsiModel(number_topics=20, number_terms=5)
 # lsimodel.create_model(tokenized_tweets["tokens"])

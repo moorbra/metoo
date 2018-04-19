@@ -28,8 +28,7 @@ class TopicModel:
     def strategy(self):
         return self._strategy
 
-
-    def create_model(self, tokenized_tweets):
+    def create_model(self, documents_data_frame):
         return
 
     def create_tfidf_model(self, corpus):
@@ -42,11 +41,11 @@ class TopicModel:
     def __get_term_from_topic(self, topic_id, topic):
         return pd.DataFrame([{"id": topic_id + 1, "term": term.split("*")[1].replace('"',""), "weight": term.split("*")[0]} for term in topic.split(" + ")])
     
-    def create_dictionary(self, tokenized_tweets):
-        return corpora.Dictionary(tokenized_tweets)
+    def create_dictionary(self, document_tokens_list):
+        return corpora.Dictionary(document_tokens_list)
     
-    def create_corpus(self, tokenized_tweets, dictionary):
-        return [dictionary.doc2bow(text) for text in tokenized_tweets]
+    def create_corpus(self, document_tokens_list, dictionary):
+        return [dictionary.doc2bow(token_list) for token_list in document_tokens_list]
         
     def plot_topics(self, topics_data_frame):
         return 
