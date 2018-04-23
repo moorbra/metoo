@@ -1,6 +1,0 @@
-word,replacement
-movements,movement
-sexual,clinton
-harrasment,clinton
-hillary,clinton
-abuse,clinton

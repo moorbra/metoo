@@ -7,6 +7,7 @@ class TopicModel:
         self._strategy = analysisStrategy
         self._model = None
         self._corpus = None
+        self._dictionary = None
 
     @property
     def model(self):
@@ -23,6 +24,14 @@ class TopicModel:
     @corpus.setter
     def corpus(self, value):
         self._corpus = value
+
+    @property
+    def dictionary(self):
+        return self._dictionary
+
+    @dictionary.setter
+    def dictionary(self, value):
+        self._dictionary = value
 
     @property
     def strategy(self):

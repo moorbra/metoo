@@ -10,9 +10,9 @@ class TaskLdaModel(TopicModel, Task):
         super().__init__(lda_strategy)
 
     def create_model(self, documents_data_frame):        
-        dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
-        self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], dictionary)
-        self.model = LdaModel(self.corpus, id2word = dictionary, num_topics = self.strategy.number_topics, passes = self.strategy.number_passes)
+        self.dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
+        self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], self.dictionary)
+        self.model = LdaModel(self.corpus, id2word = self.dictionary, num_topics = self.strategy.number_topics, passes = self.strategy.number_passes, random_state = self.strategy.random_state_seed)
 
     def get_document_topics(self):
         document_topics = [
@@ -26,18 +26,36 @@ class TaskLdaModel(TopicModel, Task):
             [
                 { 
                     "docid":i,
-                    "topics":self.model.get_document_topics(bow=t, per_word_topics=False, minimum_probability=self.strategy.minimum_probability)
+                    "topics":self.model.get_document_topics(bow=t, per_word_topics=False, minimum_probability=self.strategy.minimum_document_topic_probability)
                 } 
                 for (i,t) in enumerate(self.corpus)
             ] if len(t['topics']) > 0
         ]
         return pd.DataFrame(document_topics)
 
-    def count_topic_occurances(self, document_topics_data_frame, include_topic_terms=True):
-        df = document_topics_data_frame.groupby(['prominantTopicId']).size().reset_index(name='count')
+    def count_document_topic_occurances(self, document_topics_data_frame, include_topic_terms=True):
+        df = document_topics_data_frame.groupby(['prominantTopicId']).size().reset_index(name='Count')
         df.columns = ["TopicId", "Count"]
         if include_topic_terms:
             df["Terms"] = df["TopicId"].apply(lambda t: self.model.print_topic(t, self.strategy.number_terms))
-
         return df
 
+    def get_term_topics(self):
+        term_topics = [ 
+            {    
+                "term":t["term"],
+                "prominantTopicId":t["topics"][0][0],
+                "prmoinantTopicProbability":t["topics"][0][1],
+                "prominantTopic":self.model.print_topic(t["topics"][0][0], self.strategy.number_terms),
+                "topics":t["topics"]
+            }            
+            for t in
+            [
+                { 
+                    "term": self._dictionary.get(k), 
+                    "topics": self.model.get_term_topics(word_id = k, minimum_probability = self.strategy.minimum_term_topic_probability) 
+                } 
+                for k in self._dictionary.keys()
+            ] if len(t['topics']) > 0
+        ] 
+        return pd.DataFrame(term_topics)
