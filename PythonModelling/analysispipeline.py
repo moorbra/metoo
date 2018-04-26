@@ -41,7 +41,7 @@ load_data.save_data_frame(tweets_data_frame, analysis_file_path, "tweets.csv")
 pp("Tokenizing")
 tokenization_strategy = TokenizationStrategy()
 tokenization_strategy.custom_stop_words_file = os.path.join("../data/dre/custom_stop_words.txt")
-#tokenization_strategy.synonyms_file = os.path.join("../data/dre/synonyms.txt")
+tokenization_strategy.synonyms_file = os.path.join("../data/dre/synonyms.txt")
 tokenizer = TaskTokenize(tokenization_strategy)
 tokenized_tweets = tokenizer.tokenize_tweets(tweets_data_frame=tweets_data_frame, text_column="tweet")
 tokenizer.save_data_frame(tokenized_tweets, analysis_file_path, "tokenized_tweets.csv")
@@ -58,11 +58,14 @@ plot.get_figure().savefig(os.path.join(analysis_file_path, "termfrequency.png"))
 # LDA Model
 pp("LDA Model")
 lda_strategy = LDAStrategy()
-lda_strategy.number_passes = 500
-lda_strategy.number_terms = 20
+lda_strategy.number_passes = 20
+lda_strategy.number_terms = 15
 lda_strategy.number_topics = 20
 lda_strategy.minimum_document_topic_probability = .90
 lda_strategy.minimum_term_topic_probability = .05
+lda_strategy.eval_model_every = 5
+lda_strategy.update_model_every = 1
+lda_strategy.chunksize = 10000
 lda_strategy.tokens_column = "tokens"
 lda_strategy.text_column = "tweet"
 ldamodel = TaskLdaModel(lda_strategy)

@@ -1,6 +1,10 @@
 word,replacement
 movements,movement
-sexual,clinton
-harrasment,clinton
-hillary,clinton
-abuse,clinton
+#metoo,#MeToo
+#Metoo,#MeToo
+#METOO,#MeToo
+Women,women
+clinton,Clinton
+New,new
+#withyou,#WithYou
+wh,WhiteHouse

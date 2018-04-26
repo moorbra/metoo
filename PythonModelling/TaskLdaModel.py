@@ -12,7 +12,14 @@ class TaskLdaModel(TopicModel, Task):
     def create_model(self, documents_data_frame):        
         self.dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
         self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], self.dictionary)
-        self.model = LdaModel(self.corpus, id2word = self.dictionary, num_topics = self.strategy.number_topics, passes = self.strategy.number_passes, random_state = self.strategy.random_state_seed)
+        self.model = LdaModel(self.corpus, 
+            id2word = self.dictionary, 
+            num_topics = self.strategy.number_topics, 
+            passes = self.strategy.number_passes, 
+            random_state = self.strategy.random_state_seed, 
+            eval_every = self.strategy.eval_model_every,
+            chunksize = self.strategy.chunksize,
+            update_every = self.strategy.update_model_every)
 
     def get_document_topics(self):
         document_topics = [

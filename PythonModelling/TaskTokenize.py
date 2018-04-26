@@ -57,9 +57,9 @@ class TaskTokenize(Task):
 
     def __tokenize_tweet(self, tweet):
         tokens = self._tokenizer.tokenize(tweet)
+        tokens = self.__apply_synonyms(tokens)
         tokens = self.__remove_stop_words(tokens)
         tokens = self.__remove_too_short_tokens(tokens)        
-        tokens = self.__apply_synonyms(tokens)
         return tokens
 
     def __remove_too_short_tokens(self, tokens):
