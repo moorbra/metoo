@@ -6,6 +6,7 @@ class TokenizationStrategy:
         self._minimum_term_length = 2
         self._custom_stop_words_file = ""
         self._synonyms_file = ""
+        self._minimum_term_frequency = 1
 
     @property
     def use_stemmer(self):
@@ -53,4 +54,12 @@ class TokenizationStrategy:
 
     @synonyms_file.setter
     def synonyms_file(self, value):
-        self._synonyms_file = value     
+        self._synonyms_file = value
+
+    @property
+    def minimum_term_frequency(self):
+        return self._minimum_term_frequency
+
+    @minimum_term_frequency.setter
+    def minimum_term_frequency(self, value):
+        self._minimum_term_frequency = value        

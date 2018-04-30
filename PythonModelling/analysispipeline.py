@@ -40,25 +40,28 @@ load_data.save_data_frame(tweets_data_frame, analysis_file_path, "tweets.csv")
 # Tokenize the data
 pp("Tokenizing")
 tokenization_strategy = TokenizationStrategy()
+tokenization_strategy.minimum_term_frequency = 2
 tokenization_strategy.custom_stop_words_file = os.path.join("../data/dre/custom_stop_words.txt")
 tokenization_strategy.synonyms_file = os.path.join("../data/dre/synonyms.txt")
 tokenizer = TaskTokenize(tokenization_strategy)
 tokenized_tweets = tokenizer.tokenize_tweets(tweets_data_frame=tweets_data_frame, text_column="tweet")
 tokenizer.save_data_frame(tokenized_tweets, analysis_file_path, "tokenized_tweets.csv")
+tokenizer.save_data_frame(tokenizer.term_frequencies,analysis_file_path, "term_frequencies.csv")
+tokenizer.save_data_frame(tokenizer.infrequent_terms, analysis_file_path, "infrequent_terms.csv")
 pp("Finished Tokenizing")
 
 # Analyze the tokens
-pivoted_tokens = tokenizer.pivot_tokens(tokenized_tweets, analysis_file_path, "tweet_tokens.csv")
-tokenizer.save_data_frame(pivoted_tokens, analysis_file_path, "pivoted_tokens.csv")
-termanalyzer = TaskTermAnalysis()
-term_frequencies = termanalyzer.compute_term_frequency(pivoted_tokens)
-plot = termanalyzer.plot_term_frequency(term_frequencies, 600)
-plot.get_figure().savefig(os.path.join(analysis_file_path, "termfrequency.png"))
+#pivoted_tokens = tokenizer.pivot_tokens(tokenized_tweets, analysis_file_path)
+#tokenizer.save_data_frame(pivoted_tokens, analysis_file_path, "pivoted_tokens.csv")
+#termanalyzer = TaskTermAnalysis()
+#term_frequencies = termanalyzer.compute_term_frequency(pivoted_tokens)
+#plot = termanalyzer.plot_term_frequency(term_frequencies, 600)
+#plot.get_figure().savefig(os.path.join(analysis_file_path, "termfrequency.png"))
 
 # LDA Model
 pp("LDA Model")
 lda_strategy = LDAStrategy()
-lda_strategy.number_passes = 20
+lda_strategy.number_passes = 1
 lda_strategy.number_terms = 15
 lda_strategy.number_topics = 20
 lda_strategy.minimum_document_topic_probability = .90

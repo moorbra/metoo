@@ -4,6 +4,7 @@ from Strategies import TokenizationStrategy
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 from pprintpp import pprint as pp
+import itertools
 
 class TaskTokenize(Task):
 
@@ -12,6 +13,8 @@ class TaskTokenize(Task):
         self._tokenizer = TweetTokenizer(strip_handles=self._strategy.strip_handles, reduce_len=self._strategy.reduce_length)        
         self._stop_words = None
         self._synonyms = {}
+        self._term_frequencies = None
+        self._infrequent_terms = None
 
     @property
     def stop_words(self):
@@ -21,17 +24,39 @@ class TaskTokenize(Task):
     def synonyms(self):
         return self._synonyms
 
+    @property
+    def term_frequencies(self):
+        return self._term_frequencies 
+
+    @property
+    def infrequent_terms(self):
+        return self._infrequent_terms
+
     def tokenize_tweets(self, tweets_data_frame, text_column="tweet"):
         self.__create_stop_words()
         self.__create_synonyms()
-        return tweets_data_frame.assign(tokens = tweets_data_frame[text_column].apply(lambda t: self.__tokenize_tweet(t)))
+        tokens = tweets_data_frame[text_column].apply(lambda t: self.__tokenize_tweet(t))
+        self._term_frequencies = self.__compute_term_frequencies(tokens)
+        tokens = self.__remove_infrequent_tokens(tokens, self._term_frequencies)
+        return tweets_data_frame.assign(tokens = tokens)
 
-    def pivot_tokens(self, tokenized_tweets, path_to_save, filename):
-        pivoted_tokens = [ self.__pivot_tokens(getattr(row, "id"), getattr(row, "tokens")) for row in tokenized_tweets.itertuples()]
-        return pd.concat(pivoted_tokens, ignore_index=True)        
+    def __remove_infrequent_tokens(self, tokens, term_frequencies):
+        if(self._strategy.minimum_term_frequency > 1):            
+            self._infrequent_terms = self.__get_infrequent_terms(term_frequencies)
+            inf = set(self._infrequent_terms["token"])
+            tokens = [list(filter(lambda x: x not in inf, row[1])) for row in tokens.iteritems()]
 
-    def __pivot_tokens(self, id, tokens):
-        return pd.DataFrame([{ "id": id, "token": token } for token in tokens])
+        return tokens
+
+    def __get_infrequent_terms(self, term_frequencies):
+        return term_frequencies.query(f"count<={self._strategy.minimum_term_frequency}").sort_values(by=["count"])
+
+    def __compute_term_frequencies(self, tokens):
+        pivoted_tokens = [row[1] for row in tokens.iteritems() if len(row[1]) > 0]        
+        concatenated_tokens = pd.DataFrame(list(itertools.chain(*pivoted_tokens)))
+        term_counts = concatenated_tokens[0].value_counts().reset_index()
+        term_counts.columns = ["token", "count"]
+        return term_counts
 
     def __create_synonyms(self):
         if(self._strategy.synonyms_file):
