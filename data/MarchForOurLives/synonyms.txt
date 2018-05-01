@@ -33,3 +33,4 @@ beau,beautiful
 guns,gun
 2a,secondamendment
 2nd,secondamendment
+Sexual,sexual

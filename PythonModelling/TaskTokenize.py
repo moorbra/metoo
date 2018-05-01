@@ -38,7 +38,9 @@ class TaskTokenize(Task):
         tokens = tweets_data_frame[text_column].apply(lambda t: self.__tokenize_tweet(t))
         self._term_frequencies = self.__compute_term_frequencies(tokens)
         tokens = self.__remove_infrequent_tokens(tokens, self._term_frequencies)
-        return tweets_data_frame.assign(tokens = tokens)
+        tweets_data_frame = tweets_data_frame.assign(tokens = tokens)
+        token_counts = tweets_data_frame["tokens"].apply(lambda r: len(r))
+        return tweets_data_frame.assign(tokencount = token_counts)
 
     def __remove_infrequent_tokens(self, tokens, term_frequencies):
         if(self._strategy.minimum_term_frequency > 1):            

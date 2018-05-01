@@ -9,6 +9,15 @@ class LDAStrategy(AnalysisStrategy):
         self._eval_model_every = None
         self._chunksize = 2000
         self._update_model_every = 1
+        self._training_iterations = 50
+
+    @property
+    def training_iterations(self):
+        return self._training_iterations
+
+    @training_iterations.setter
+    def training_iterations(self, value):
+        self._training_iterations = value
 
     @property
     def random_state_seed(self):

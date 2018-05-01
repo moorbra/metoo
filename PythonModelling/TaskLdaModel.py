@@ -1,6 +1,7 @@
 from Task import Task
 from TopicModel import TopicModel
 from gensim.models import LdaModel
+from gensim.models import CoherenceModel
 from Strategies import LDAStrategy
 import pandas as pd
 
@@ -8,8 +9,10 @@ class TaskLdaModel(TopicModel, Task):
 
     def __init__(self, lda_strategy):
         super().__init__(lda_strategy)
+        self._texts = None
 
-    def create_model(self, documents_data_frame):        
+    def create_model(self, documents_data_frame):
+        self._texts = documents_data_frame[self.strategy.tokens_column]
         self.dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
         self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], self.dictionary)
         self.model = LdaModel(self.corpus, 
@@ -19,7 +22,8 @@ class TaskLdaModel(TopicModel, Task):
             random_state = self.strategy.random_state_seed, 
             eval_every = self.strategy.eval_model_every,
             chunksize = self.strategy.chunksize,
-            update_every = self.strategy.update_model_every)
+            update_every = self.strategy.update_model_every,
+            iterations = self.strategy.training_iterations)
 
     def get_document_topics(self):
         document_topics = [
@@ -66,3 +70,21 @@ class TaskLdaModel(TopicModel, Task):
             ] if len(t['topics']) > 0
         ] 
         return pd.DataFrame(term_topics)
+
+    def calculate_topic_coherence(self):
+        coherence_model = CoherenceModel(
+            model = self.model,
+            #corpus = self.corpus,
+            texts = self._texts,
+            dictionary = self.dictionary,
+            coherence = 'c_v')
+        return coherence_model.get_coherence()
+
+    def calculate_per_topic_coherence(self):
+        coherence_model = CoherenceModel(
+           model = self.model,
+            #corpus = self.corpus,
+            texts = self._texts,
+            dictionary = self.dictionary,
+            coherence = 'c_v')
+        return coherence_model.get_coherence_per_topic()

@@ -15,8 +15,8 @@ import os
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-removeRegex = re.compile(r"[@]\w+[ ,.:]?|[?_#.]{2,}|&amp;|[\"]|http[s?]://\w+.\w+[/\w+]{0,}|^RT|^[ ]{1,}|[ ]{1,}$", re.IGNORECASE)
-removeLineBreaks = re.compile(r"\n", re.IGNORECASE)
+removeRegex = re.compile(r"[@]\w+[ ,.:]?|[?_#.]{2,}|&amp;|[\"]|http[s?]://\w+.\w+[/\w+]{0,}|^RT|^[ ]{1,}|[ ]{1,}$|_{2,}", re.IGNORECASE)
+removeLineBreaks = re.compile(r"\n|\r\n|\r", re.IGNORECASE)
 reduceSpaces = re.compile(r"[ ]{2,}", re.IGNORECASE)
 removeInvalidCharacters = re.compile(r"[^\u0000-\u007F]", re.IGNORECASE)
 removeleadingspace = re.compile(r"^[ ]{1,}")
@@ -45,6 +45,7 @@ tokenization_strategy.custom_stop_words_file = os.path.join("../data/dre/custom_
 tokenization_strategy.synonyms_file = os.path.join("../data/dre/synonyms.txt")
 tokenizer = TaskTokenize(tokenization_strategy)
 tokenized_tweets = tokenizer.tokenize_tweets(tweets_data_frame=tweets_data_frame, text_column="tweet")
+tokenized_tweets = tokenized_tweets.query("tokencount>0")
 tokenizer.save_data_frame(tokenized_tweets, analysis_file_path, "tokenized_tweets.csv")
 tokenizer.save_data_frame(tokenizer.term_frequencies,analysis_file_path, "term_frequencies.csv")
 tokenizer.save_data_frame(tokenizer.infrequent_terms, analysis_file_path, "infrequent_terms.csv")
@@ -61,14 +62,15 @@ pp("Finished Tokenizing")
 # LDA Model
 pp("LDA Model")
 lda_strategy = LDAStrategy()
-lda_strategy.number_passes = 1
+lda_strategy.number_passes = 50
 lda_strategy.number_terms = 15
-lda_strategy.number_topics = 20
+lda_strategy.number_topics = 60
 lda_strategy.minimum_document_topic_probability = .90
 lda_strategy.minimum_term_topic_probability = .05
 lda_strategy.eval_model_every = 5
 lda_strategy.update_model_every = 1
-lda_strategy.chunksize = 10000
+lda_strategy.chunksize = 2000
+lda_strategy.training_iterations = 100000
 lda_strategy.tokens_column = "tokens"
 lda_strategy.text_column = "tweet"
 ldamodel = TaskLdaModel(lda_strategy)
@@ -82,7 +84,10 @@ topic_count = ldamodel.count_document_topic_occurances(document_topics_data_fram
 ldamodel.save_data_frame(topic_count, analysis_file_path, "lda_topicdocument_count.csv")
 term_topics = ldamodel.get_term_topics()
 ldamodel.save_data_frame(term_topics, analysis_file_path, "lda_term_topics.csv")
-
+topic_coherence = ldamodel.calculate_topic_coherence()
+pp(topic_coherence)
+per_topic_coherence = ldamodel.calculate_per_topic_coherence()
+pp(per_topic_coherence)
 # LSI Model
 # lsimodel = TaskLsiModel(number_topics=20, number_terms=5)
 # lsimodel.create_model(tokenized_tweets["tokens"]) 
