@@ -8,10 +8,12 @@ import pandas as pd
 class TaskLdaModel(TopicModel, Task):
 
     def __init__(self, lda_strategy):
-        super().__init__(lda_strategy)
+        TopicModel.__init__(self, lda_strategy)
+        Task.__init__(self)
         self._texts = None
 
     def create_model(self, documents_data_frame):
+        self.logger.info("Creating LDA topic model.")
         self._texts = documents_data_frame[self.strategy.tokens_column]
         self.dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
         self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], self.dictionary)

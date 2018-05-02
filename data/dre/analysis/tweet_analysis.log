@@ -1,0 +1,156 @@
+2018-05-02 04:08:41,510 : INFO : Loading data files.
+2018-05-02 04:08:41,540 : INFO : Found 9218 documents in data file ../data/dre/data/Metoo0310_2017.csv.
+2018-05-02 04:08:41,552 : INFO : Found 2566 documents in data file ../data/dre/data/Metoo_Feb262018.csv.
+2018-05-02 04:08:41,565 : INFO : Found 1628 documents in data file ../data/dre/data/Metoo_Feb272018.csv.
+2018-05-02 04:08:41,595 : INFO : Found 7752 documents in data file ../data/dre/data/Metoo_Jan312018.csv.
+2018-05-02 04:08:41,607 : INFO : Found 1631 documents in data file ../data/dre/data/MeToo_March062018.csv.
+2018-05-02 04:08:41,618 : INFO : Found 2258 documents in data file ../data/dre/data/Metoo_March082018.csv.
+2018-05-02 04:08:41,628 : INFO : Found 1956 documents in data file ../data/dre/data/Metoo_March132018.csv.
+2018-05-02 04:08:42,500 : INFO : Loaded 27009 documents.
+2018-05-02 04:08:42,724 : INFO : Computing sentiment for each document.
+2018-05-02 04:08:57,117 : INFO : Beginning tokenization.
+2018-05-02 04:08:57,117 : INFO : Preparing stop words.
+2018-05-02 04:08:57,134 : INFO : Merged 167 custom stop words with 179 NLTK english stop words. 
+2018-05-02 04:08:57,145 : INFO : Creating synonyms list.
+2018-05-02 04:08:57,180 : INFO : Created 10 synonyms.
+2018-05-02 04:08:57,187 : INFO : Tokenizing 27009 documents.
+2018-05-02 04:09:00,115 : INFO : Computing token frequencies
+2018-05-02 04:09:00,178 : INFO : Identifying infrequent tokens.
+2018-05-02 04:09:00,197 : INFO : Found 12403 infrequent tokens.
+2018-05-02 04:09:00,203 : INFO : Removing infrequent tokens from each document.
+2018-05-02 04:09:00,302 : INFO : Found 8469 documents without tokens.
+2018-05-02 04:09:00,306 : INFO : Found 18540 documents with tokens.
+2018-05-02 04:09:00,757 : INFO : Performing LDA topic modelling
+2018-05-02 04:09:00,758 : INFO : Creating LDA topic model.
+2018-05-02 04:09:00,759 : INFO : adding document #0 to Dictionary(0 unique tokens: [])
+2018-05-02 04:09:00,894 : INFO : adding document #10000 to Dictionary(7188 unique tokens: ['#changetheratio', 'From', 'believe', 'better', 'community']...)
+2018-05-02 04:09:01,016 : INFO : built Dictionary(9609 unique tokens: ['#changetheratio', 'From', 'believe', 'better', 'community']...) from 18540 documents (total 151468 corpus positions)
+2018-05-02 04:09:01,209 : INFO : using symmetric alpha at 0.016666666666666666
+2018-05-02 04:09:01,209 : INFO : using symmetric eta at 0.016666666666666666
+2018-05-02 04:09:01,211 : INFO : using serial LDA version on this node
+2018-05-02 04:09:01,293 : INFO : running online (multi-pass) LDA training, 60 topics, 20 passes over the supplied corpus of 18540 documents, updating model once every 4000 documents, evaluating perplexity every 18540 documents, iterating 10000000x with a convergence threshold of 0.001000
+2018-05-02 04:09:01,294 : INFO : PROGRESS: pass 0, at document #4000/18540
+2018-05-02 04:09:02,423 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:02,503 : INFO : topic #34 (0.017): 0.157*"sistar" + 0.019*"#Timesup" + 0.014*"thoughts" + 0.014*"Me" + 0.011*"#WithYou" + 0.010*"ITNW" + 0.010*"dont" + 0.010*"Ewha" + 0.010*"LGBT" + 0.010*"#SNSD"
+2018-05-02 04:09:02,503 : INFO : topic #32 (0.017): 0.023*"women" + 0.018*"VCR" + 0.015*"#meto" + 0.011*"Harassment" + 0.011*"Sexual" + 0.009*"They" + 0.009*"like" + 0.009*"You" + 0.007*"abuse" + 0.007*"movement"
+2018-05-02 04:09:02,504 : INFO : topic #49 (0.017): 0.019*"often" + 0.017*"#wetoo" + 0.014*"Her" + 0.013*"via" + 0.009*"tale" + 0.009*"#BookBoost" + 0.009*"#CR4U" + 0.009*"#motherhood" + 0.009*"#RRBC" + 0.009*"uplifting"
+2018-05-02 04:09:02,505 : INFO : topic #26 (0.017): 0.045*"VCR" + 0.030*"#WithYou" + 0.023*"OUT" + 0.023*"women" + 0.020*"movement" + 0.010*"150" + 0.010*"many" + 0.010*"ITNW" + 0.010*"#SNSD" + 0.010*"Ewha"
+2018-05-02 04:09:02,505 : INFO : topic #17 (0.017): 0.027*"Naver" + 0.027*"+13,615" + 0.026*"sexual" + 0.022*"harassment" + 0.016*"movement" + 0.012*"women" + 0.009*"Que" + 0.007*"good" + 0.007*"thing" + 0.007*"erupted"
+2018-05-02 04:09:02,507 : INFO : topic diff=56.884075, rho=1.000000
+2018-05-02 04:09:02,508 : INFO : PROGRESS: pass 0, at document #8000/18540
+2018-05-02 04:09:03,582 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:03,745 : INFO : topic #49 (0.017): 0.039*"via" + 0.035*"Not" + 0.019*"well" + 0.017*"often" + 0.017*"nothing" + 0.017*"asked" + 0.013*"yeah" + 0.012*"age" + 0.011*"Book" + 0.011*"lo"
+2018-05-02 04:09:03,747 : INFO : topic #59 (0.017): 0.026*"Rose" + 0.023*"Of" + 0.019*"How" + 0.019*"Will" + 0.018*"movement" + 0.018*"another" + 0.016*"#RoseArmy" + 0.015*"happened" + 0.012*"mean" + 0.012*"campaign"
+2018-05-02 04:09:03,748 : INFO : topic #53 (0.017): 0.040*"women" + 0.028*"makes" + 0.028*"services" + 0.025*"sexual" + 0.020*"good" + 0.020*"forward" + 0.020*"assault" + 0.019*"admits" + 0.019*"pays" + 0.019*"come"
+2018-05-02 04:09:03,749 : INFO : topic #54 (0.017): 0.037*"women" + 0.034*"proud" + 0.027*"abused" + 0.023*"sexually" + 0.019*"sexual" + 0.018*"exactly" + 0.013*"woman" + 0.013*"Monday" + 0.013*"Hillary" + 0.013*"explain"
+2018-05-02 04:09:03,750 : INFO : topic #43 (0.017): 0.027*"Abuse" + 0.021*"year" + 0.018*"#NeverAgain" + 0.018*"much" + 0.016*"Age" + 0.014*"CA" + 0.014*"#Trump" + 0.013*"left" + 0.013*"#domesticviolence" + 0.012*"harder"
+2018-05-02 04:09:03,757 : INFO : topic diff=2.186745, rho=0.707107
+2018-05-02 04:09:03,760 : INFO : PROGRESS: pass 0, at document #12000/18540
+2018-05-02 04:09:04,623 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:04,696 : INFO : topic #44 (0.017): 0.088*"play" + 0.080*"trying" + 0.074*"#TimesUp" + 0.065*"man" + 0.035*"lives" + 0.034*"dollar" + 0.034*"multi" + 0.034*"billion" + 0.030*"Well" + 0.025*"Kelly"
+2018-05-02 04:09:04,697 : INFO : topic #15 (0.017): 0.043*"Black" + 0.039*"support" + 0.030*"worse" + 0.027*"group" + 0.020*"movement" + 0.019*"take" + 0.017*"part" + 0.017*"platform" + 0.016*"women" + 0.016*"Sign"
+2018-05-02 04:09:04,698 : INFO : topic #10 (0.017): 0.053*"back" + 0.042*"girls" + 0.041*"#WomensMarch2018" + 0.030*"something" + 0.020*"#FeministFriday" + 0.020*"#WomensMarchNYC" + 0.020*"#NowItsOurTime" + 0.020*"#HearOurVoice" + 0.017*"#RunVoteRun" + 0.016*"mouvement"
+2018-05-02 04:09:04,699 : INFO : topic #49 (0.017): 0.123*"Thanks" + 0.056*"latest" + 0.049*"nothing" + 0.029*"Not" + 0.021*"Have" + 0.019*"via" + 0.014*"asked" + 0.014*"well" + 0.013*"hace" + 0.009*"lo"
+2018-05-02 04:09:04,699 : INFO : topic #41 (0.017): 0.032*"Pd" + 0.032*"No_Racism" + 0.032*"#Avanti" + 0.032*"#CHANGEStopAbuse" + 0.032*"4marzo" + 0.032*"CampagnaElettorale" + 0.032*"HOW_TO" + 0.032*"MatteoRenzi" + 0.028*"Hey" + 0.028*"movement"
+2018-05-02 04:09:04,700 : INFO : topic diff=0.834482, rho=0.577350
+2018-05-02 04:09:04,701 : INFO : PROGRESS: pass 0, at document #16000/18540
+2018-05-02 04:09:05,593 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:05,671 : INFO : topic #30 (0.017): 0.040*"Yes" + 0.036*"Weinstein's" + 0.033*"movement" + 0.031*"Part" + 0.023*"Harvey" + 0.021*"support" + 0.017*"Burke" + 0.016*"ask" + 0.016*"Tarana" + 0.014*"har"
+2018-05-02 04:09:05,671 : INFO : topic #42 (0.017): 0.085*"#TimesUp" + 0.065*"#timesup" + 0.058*"#FridayFeeling" + 0.028*"#BlackLivesMatter" + 0.021*"#LAPD" + 0.019*"#TheResistance" + 0.015*"Really" + 0.014*"Sex" + 0.013*"sexism" + 0.013*"Behind"
+2018-05-02 04:09:05,672 : INFO : topic #7 (0.017): 0.050*"idol" + 0.031*"Live" + 0.021*"shame" + 0.019*"pointing" + 0.019*"yrs" + 0.016*"thought" + 0.016*"must" + 0.015*"Oscars" + 0.014*"movement" + 0.014*"Seems"
+2018-05-02 04:09:05,673 : INFO : topic #37 (0.017): 0.050*"believe" + 0.036*"Chelsea" + 0.029*"means" + 0.027*"may" + 0.022*"On" + 0.019*"women" + 0.018*"parte" + 0.016*"lie" + 0.013*"defense" + 0.013*"see"
+2018-05-02 04:09:05,674 : INFO : topic #39 (0.017): 0.032*"100" + 0.027*"James" + 0.024*"wife" + 0.022*"join" + 0.020*"#p2" + 0.019*"Ahead" + 0.017*"via" + 0.016*"Rape" + 0.015*"Two" + 0.015*"seeing"
+2018-05-02 04:09:05,675 : INFO : topic diff=1.210376, rho=0.500000
+2018-05-02 04:09:06,656 : INFO : -20.175 per-word bound, 1183948.3 perplexity estimate based on a held-out corpus of 2540 documents with 24762 words
+2018-05-02 04:09:06,656 : INFO : PROGRESS: pass 0, at document #18540/18540
+2018-05-02 04:09:07,230 : INFO : merging changes from 2540 documents into a model of 18540 documents
+2018-05-02 04:09:07,317 : INFO : topic #36 (0.017): 0.068*"photos" + 0.062*"violence" + 0.031*"years" + 0.029*"sexual" + 0.025*"toxic" + 0.025*"created" + 0.023*"talking" + 0.022*"women" + 0.020*"men" + 0.020*"ever"
+2018-05-02 04:09:07,318 : INFO : topic #2 (0.017): 0.147*"House" + 0.044*"men" + 0.040*"Our" + 0.029*"movement" + 0.019*"#MAGA" + 0.018*"Terry" + 0.018*"Crews" + 0.016*"response" + 0.016*"Podcast" + 0.016*"Josh"
+2018-05-02 04:09:07,319 : INFO : topic #31 (0.017): 0.064*"great" + 0.041*"getting" + 0.029*"us" + 0.029*"abused" + 0.028*"correct" + 0.027*"coming" + 0.025*"victim" + 0.025*"movement" + 0.023*"start" + 0.022*"interview"
+2018-05-02 04:09:07,319 : INFO : topic #39 (0.017): 0.050*"released" + 0.049*"new" + 0.039*"join" + 0.021*"Beatsnbeauty" + 0.021*"#TimesUp-inspired" + 0.021*"DJ" + 0.021*"songstress" + 0.021*"SOFI" + 0.019*"seeing" + 0.018*"chef"
+2018-05-02 04:09:07,320 : INFO : topic #53 (0.017): 0.038*"Oscar" + 0.031*"women" + 0.028*"makes" + 0.025*"thing" + 0.025*"night" + 0.019*"#8mars" + 0.018*"surprise" + 0.018*"14" + 0.016*"More" + 0.014*"though"
+2018-05-02 04:09:07,321 : INFO : topic diff=0.877902, rho=0.447214
+2018-05-02 04:09:07,322 : INFO : PROGRESS: pass 1, at document #4000/18540
+2018-05-02 04:09:08,002 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:08,079 : INFO : topic #44 (0.017): 0.066*"man" + 0.052*"#TimesUp" + 0.047*"ha" + 0.042*"trying" + 0.037*"play" + 0.031*"talks" + 0.020*"lives" + 0.019*"everyone" + 0.018*"amazing" + 0.016*"Well"
+2018-05-02 04:09:08,079 : INFO : topic #16 (0.017): 0.065*"So" + 0.029*"#TimesUp" + 0.028*"someone" + 0.028*"movement" + 0.026*"please" + 0.024*"love" + 0.024*"first" + 0.024*"care" + 0.024*"In" + 0.022*"accusers"
+2018-05-02 04:09:08,080 : INFO : topic #13 (0.017): 0.031*"movement" + 0.026*"message" + 0.024*"saying" + 0.024*"workers" + 0.023*"actress" + 0.019*"fan" + 0.017*"I'm" + 0.016*"#sexualharassment" + 0.015*"rights" + 0.013*"revealed"
+2018-05-02 04:09:08,081 : INFO : topic #10 (0.017): 0.058*"girls" + 0.042*"abuse" + 0.029*"back" + 0.028*"speak" + 0.028*"protect" + 0.024*"something" + 0.017*"different" + 0.015*"Dont" + 0.013*"How" + 0.013*"Congress"
+2018-05-02 04:09:08,082 : INFO : topic #57 (0.017): 0.097*"How" + 0.072*"What" + 0.042*"Shares" + 0.031*"Woman" + 0.027*"action" + 0.020*"#TIMESUP" + 0.018*"restaurants" + 0.017*"clear" + 0.017*"global" + 0.016*"chef"
+2018-05-02 04:09:08,083 : INFO : topic diff=0.408509, rho=0.388221
+2018-05-02 04:09:08,084 : INFO : PROGRESS: pass 1, at document #8000/18540
+2018-05-02 04:09:08,878 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:08,953 : INFO : topic #18 (0.017): 0.129*"#WithYou" + 0.045*"OUT" + 0.043*"real" + 0.038*"wrong" + 0.031*"type" + 0.022*"victim" + 0.020*"become" + 0.020*"Mike" + 0.018*"movement" + 0.018*"women"
+2018-05-02 04:09:08,954 : INFO : topic #35 (0.017): 0.044*"women" + 0.036*"movement" + 0.028*"never" + 0.026*"South" + 0.025*"Korea" + 0.024*"got" + 0.023*"two" + 0.021*"Even" + 0.020*"#meto" + 0.020*"us"
+2018-05-02 04:09:08,954 : INFO : topic #5 (0.017): 0.071*"one" + 0.029*"shows" + 0.024*"time" + 0.023*"media" + 0.019*"share" + 0.018*"double" + 0.016*"movement" + 0.014*"sign" + 0.013*"hashtag" + 0.013*"men"
+2018-05-02 04:09:08,955 : INFO : topic #4 (0.017): 0.042*"public" + 0.040*"#MaintenantOnAgit" + 0.029*"pour" + 0.029*"talk" + 0.028*"rape" + 0.024*"dans" + 0.020*"Like" + 0.017*"#BalanceTonPorc" + 0.016*"Oprah" + 0.016*"#Withyou"
+2018-05-02 04:09:08,956 : INFO : topic #47 (0.017): 0.056*"far" + 0.056*"My" + 0.033*"show" + 0.028*"Minister" + 0.023*"movement" + 0.023*"YOU" + 0.022*"new" + 0.022*"#Resist" + 0.018*"Canadian" + 0.017*"full"
+2018-05-02 04:09:08,957 : INFO : topic diff=0.414063, rho=0.388221
+2018-05-02 04:09:08,958 : INFO : PROGRESS: pass 1, at document #12000/18540
+2018-05-02 04:09:09,607 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:09,691 : INFO : topic #55 (0.017): 0.067*"says" + 0.044*"still" + 0.031*"allegations" + 0.030*"assaulted" + 0.028*"movement" + 0.026*"Stop" + 0.026*"problem" + 0.015*"#HillaryClinton" + 0.014*"far" + 0.013*"gross"
+2018-05-02 04:09:09,693 : INFO : topic #4 (0.017): 0.045*"public" + 0.042*"pour" + 0.026*"talk" + 0.021*"rape" + 0.021*"#MaintenantOnAgit" + 0.020*"violences" + 0.017*"grand" + 0.016*"sexistes" + 0.015*"Trump's" + 0.014*"Like"
+2018-05-02 04:09:09,693 : INFO : topic #51 (0.017): 0.040*"This" + 0.026*"way" + 0.026*"brought" + 0.023*"In" + 0.021*"end" + 0.019*"performing" + 0.019*"guy" + 0.018*"lot" + 0.018*"issues" + 0.018*"ago"
+2018-05-02 04:09:09,694 : INFO : topic #20 (0.017): 0.056*"long" + 0.056*"want" + 0.032*"truth" + 0.028*"bad" + 0.023*"women" + 0.022*"Do" + 0.022*"child" + 0.017*"school" + 0.017*"cannot" + 0.015*"children"
+2018-05-02 04:09:09,695 : INFO : topic #11 (0.017): 0.057*"Watch" + 0.054*"say" + 0.053*"Hollywood" + 0.028*"call" + 0.022*"uncomfortable" + 0.021*"via" + 0.021*"question" + 0.019*"feel" + 0.018*"sns" + 0.017*"thanks"
+2018-05-02 04:09:09,698 : INFO : topic diff=0.477010, rho=0.388221
+2018-05-02 04:09:09,699 : INFO : PROGRESS: pass 1, at document #16000/18540
+2018-05-02 04:09:10,455 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:10,540 : INFO : topic #9 (0.017): 0.101*"like" + 0.031*"He" + 0.020*"agree" + 0.018*"#TimesUp" + 0.018*"put" + 0.018*"since" + 0.014*"hosted" + 0.014*"All" + 0.013*"Love" + 0.012*"would"
+2018-05-02 04:09:10,541 : INFO : topic #40 (0.017): 0.115*"moment" + 0.067*"#GRAMMYs" + 0.063*"Why" + 0.048*"Grammys" + 0.042*"perrform" + 0.040*"Williams" + 0.026*"Moment" + 0.024*"cant" + 0.020*"Wendy" + 0.020*"Music"
+2018-05-02 04:09:10,542 : INFO : topic #41 (0.017): 0.048*"heard" + 0.037*"VCR" + 0.036*"Hey" + 0.033*"Up" + 0.030*"Economic" + 0.029*"spoke" + 0.027*"Pd" + 0.027*"No_Racism" + 0.027*"4marzo" + 0.027*"#CHANGEStopAbuse"
+2018-05-02 04:09:10,543 : INFO : topic #36 (0.017): 0.112*"photos" + 0.052*"violence" + 0.041*"talking" + 0.029*"hurt" + 0.026*"help" + 0.026*"years" + 0.025*"discussion" + 0.025*"sexual" + 0.019*"ever" + 0.019*"doesnt"
+2018-05-02 04:09:10,544 : INFO : topic #4 (0.017): 0.044*"public" + 0.037*"rape" + 0.037*"talk" + 0.031*"pour" + 0.017*"Taking" + 0.014*"violences" + 0.013*"#MaintenantOnAgit" + 0.013*"dans" + 0.013*"ou" + 0.012*"Like"
+2018-05-02 04:09:10,546 : INFO : topic diff=0.491308, rho=0.388221
+2018-05-02 04:09:11,382 : INFO : -9.078 per-word bound, 540.5 perplexity estimate based on a held-out corpus of 2540 documents with 24762 words
+2018-05-02 04:09:11,383 : INFO : PROGRESS: pass 1, at document #18540/18540
+2018-05-02 04:09:11,858 : INFO : merging changes from 2540 documents into a model of 18540 documents
+2018-05-02 04:09:11,949 : INFO : topic #38 (0.017): 0.050*"whether" + 0.046*"look" + 0.044*"change" + 0.043*"could" + 0.041*"2016" + 0.030*"#TimesUp" + 0.028*"came" + 0.022*"lawyers" + 0.020*"Status" + 0.017*"way"
+2018-05-02 04:09:11,951 : INFO : topic #45 (0.017): 0.055*"Changing" + 0.040*"Womens" + 0.032*"Times" + 0.031*"havent" + 0.029*"discussing" + 0.029*"Day" + 0.025*"version" + 0.024*"Female" + 0.022*"continue" + 0.020*"One"
+2018-05-02 04:09:11,952 : INFO : topic #15 (0.017): 0.105*"support" + 0.053*"wearing" + 0.044*"make" + 0.039*"work" + 0.032*"women" + 0.029*"leading" + 0.024*"among" + 0.023*"think" + 0.023*"movement" + 0.019*"16"
+2018-05-02 04:09:11,952 : INFO : topic #10 (0.017): 0.074*"girls" + 0.058*"abuse" + 0.032*"protect" + 0.029*"speak" + 0.029*"back" + 0.028*"deafening" + 0.028*"set's" + 0.027*"wron" + 0.027*"Telford" + 0.025*"something"
+2018-05-02 04:09:11,953 : INFO : topic #41 (0.017): 0.055*"heard" + 0.041*"spoke" + 0.039*"Up" + 0.037*"Hey" + 0.029*"VCR" + 0.024*"Economic" + 0.022*"movement" + 0.022*"Hashtag" + 0.021*"Time's" + 0.021*"CampagnaElettorale"
+2018-05-02 04:09:11,954 : INFO : topic diff=0.521000, rho=0.388221
+2018-05-02 04:09:11,955 : INFO : PROGRESS: pass 2, at document #4000/18540
+2018-05-02 04:09:12,600 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:12,713 : INFO : topic #33 (0.017): 0.038*"LOVE" + 0.034*"news" + 0.030*"You" + 0.024*"seen" + 0.023*"dating" + 0.020*"sure" + 0.019*"watch" + 0.018*"girl" + 0.018*"They" + 0.017*"I'm"
+2018-05-02 04:09:12,716 : INFO : topic #30 (0.017): 0.061*"movement" + 0.033*"founder" + 0.030*"perpetrator" + 0.027*"career" + 0.026*"York" + 0.024*"catalyst" + 0.022*"sea" + 0.020*"new" + 0.020*"Yes" + 0.019*"took"
+2018-05-02 04:09:12,721 : INFO : topic #11 (0.017): 0.079*"say" + 0.050*"Hollywood" + 0.043*"sns" + 0.029*"Watch" + 0.024*"call" + 0.020*"feel" + 0.019*"working" + 0.016*"THIS" + 0.016*"people" + 0.015*"If"
+2018-05-02 04:09:12,721 : INFO : topic #8 (0.017): 0.039*"#RRBC" + 0.031*"By" + 0.029*"#PTSD" + 0.028*"With" + 0.026*"#IARTG" + 0.025*"even" + 0.022*"old" + 0.019*"#IAN1" + 0.018*"#SXSW" + 0.016*"#Jesus"
+2018-05-02 04:09:12,722 : INFO : topic #42 (0.017): 0.073*"#TimesUp" + 0.044*"#timesup" + 0.031*"#NeverAgain" + 0.027*"#BlackLivesMatter" + 0.026*"#FridayFeeling" + 0.025*"#TheResistance" + 0.023*"sexism" + 0.019*"Sex" + 0.016*"meet" + 0.016*"highlighting"
+2018-05-02 04:09:12,723 : INFO : topic diff=0.519987, rho=0.361906
+2018-05-02 04:09:12,724 : INFO : PROGRESS: pass 2, at document #8000/18540
+2018-05-02 04:09:13,721 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:13,795 : INFO : topic #55 (0.017): 0.065*"says" + 0.043*"still" + 0.038*"assaulted" + 0.027*"problem" + 0.025*"movement" + 0.022*"allegations" + 0.022*"Stop" + 0.017*"gross" + 0.016*"(=" + 0.016*"actor"
+2018-05-02 04:09:13,796 : INFO : topic #22 (0.017): 0.035*"also" + 0.025*"working-class" + 0.020*"movimento" + 0.017*"misconduct" + 0.017*"van" + 0.016*"That" + 0.014*"#meToo" + 0.014*"denied" + 0.013*"statement" + 0.012*"#AidToo"
+2018-05-02 04:09:13,797 : INFO : topic #18 (0.017): 0.133*"#WithYou" + 0.048*"OUT" + 0.044*"real" + 0.040*"wrong" + 0.037*"victim" + 0.032*"type" + 0.020*"become" + 0.019*"Mike" + 0.019*"office" + 0.017*"movement"
+2018-05-02 04:09:13,797 : INFO : topic #11 (0.017): 0.071*"say" + 0.060*"Watch" + 0.052*"uncomfortable" + 0.044*"Hollywood" + 0.032*"call" + 0.027*"sns" + 0.023*"question" + 0.020*"working" + 0.020*"feel" + 0.016*"get"
+2018-05-02 04:09:13,798 : INFO : topic #26 (0.017): 0.046*"Clinton" + 0.040*"silence" + 0.028*"They" + 0.026*"Bill" + 0.023*"movement" + 0.022*"Here's" + 0.018*"These" + 0.018*"Lewinsky" + 0.017*"everything" + 0.016*"Monica"
+2018-05-02 04:09:13,799 : INFO : topic diff=0.475350, rho=0.361906
+2018-05-02 04:09:13,800 : INFO : PROGRESS: pass 2, at document #12000/18540
+2018-05-02 04:09:14,449 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:14,527 : INFO : topic #8 (0.017): 0.036*"With" + 0.033*"even" + 0.023*"old" + 0.022*"avec" + 0.021*"By" + 0.020*"pass" + 0.020*"#RRBC" + 0.017*"dit" + 0.017*"#PTSD" + 0.017*"temps"
+2018-05-02 04:09:14,528 : INFO : topic #18 (0.017): 0.111*"#WithYou" + 0.047*"victim" + 0.045*"real" + 0.041*"OUT" + 0.038*"wrong" + 0.027*"type" + 0.023*"become" + 0.019*"office" + 0.019*"Mike" + 0.018*"movement"
+2018-05-02 04:09:14,529 : INFO : topic #1 (0.017): 0.060*"new" + 0.058*"movement" + 0.054*"used" + 0.052*"World" + 0.046*"Korea's" + 0.046*"Into" + 0.044*"anthem" + 0.041*"Girls" + 0.041*"#Girls_Can_Do_Anything" + 0.040*"Generation's"
+2018-05-02 04:09:14,530 : INFO : topic #5 (0.017): 0.096*"one" + 0.033*"shows" + 0.030*"double" + 0.024*"media" + 0.019*"time" + 0.017*"share" + 0.017*"#TimHortons" + 0.016*"movement" + 0.015*"TV's" + 0.015*"STANNING"
+2018-05-02 04:09:14,530 : INFO : topic #9 (0.017): 0.112*"like" + 0.034*"He" + 0.023*"put" + 0.020*"agree" + 0.020*"hosted" + 0.019*"sin" + 0.018*"since" + 0.017*"true" + 0.017*"All" + 0.015*"#TimesUp"
+2018-05-02 04:09:14,532 : INFO : topic diff=0.463308, rho=0.361906
+2018-05-02 04:09:14,533 : INFO : PROGRESS: pass 2, at document #16000/18540
+2018-05-02 04:09:15,213 : INFO : merging changes from 4000 documents into a model of 18540 documents
+2018-05-02 04:09:15,294 : INFO : topic #39 (0.017): 0.035*"new" + 0.030*"100" + 0.024*"James" + 0.023*"join" + 0.022*"wife" + 0.020*"via" + 0.017*"#p2" + 0.016*"Ahead" + 0.016*"seeing" + 0.016*"March"
+2018-05-02 04:09:15,295 : INFO : topic #20 (0.017): 0.068*"want" + 0.043*"tonight" + 0.038*"long" + 0.028*"Nigerian" + 0.028*"truth" + 0.025*"school" + 0.023*"bad" + 0.020*"girls" + 0.020*"child" + 0.019*"Do"
+2018-05-02 04:09:15,296 : INFO : topic #6 (0.017): 0.129*"members" + 0.063*"confusion" + 0.033*"Join" + 0.026*"essay" + 0.020*"stop" + 0.020*"#MeToomovement" + 0.018*"course" + 0.016*"8P" + 0.016*"hearing" + 0.016*"consent"
+2018-05-02 04:09:15,296 : INFO : topic #15 (0.017): 0.128*"support" + 0.073*"wearing" + 0.058*"black" + 0.036*"posed" + 0.036*"Minority" + 0.034*"Leader" + 0.028*"work" + 0.024*"think" + 0.022*"women" + 0.022*"movement"
+2018-05-02 04:09:15,297 : INFO : topic #0 (0.017): 0.045*"#SOTU" + 0.034*"An" + 0.030*"Kobe" + 0.022*"Glad" + 0.022*"Speaker" + 0.021*"misogynistic" + 0.020*"Court" + 0.020*"Guilty" + 0.020*"Federal" + 0.020*"CT"
+2018-05-02 04:09:15,298 : INFO : topic diff=0.397808, rho=0.361906
+2018-05-02 04:09:15,997 : INFO : -8.748 per-word bound, 429.9 perplexity estimate based on a held-out corpus of 2540 documents with 24762 words
+2018-05-02 04:09:15,998 : INFO : PROGRESS: pass 2, at document #18540/18540
+2018-05-02 04:09:16,463 : INFO : merging changes from 2540 documents into a model of 18540 documents
+2018-05-02 04:09:16,540 : INFO : topic #34 (0.017): 0.081*"#timesup" + 0.053*"#internationalwomensday" + 0.038*"sistar" + 0.037*"Ladies" + 0.037*"around" + 0.035*"Represent" + 0.035*"Display" + 0.035*"Strength" + 0.032*"Knowle" + 0.020*"piece"
+2018-05-02 04:09:16,541 : INFO : topic #56 (0.017): 0.055*"Thoughts" + 0.047*"No" + 0.041*"many" + 0.026*"Funny" + 0.023*"hope" + 0.020*"First" + 0.019*"generation" + 0.019*"harassed" + 0.016*"car" + 0.016*"PSA"
+2018-05-02 04:09:16,542 : INFO : topic #44 (0.017): 0.090*"man" + 0.062*"ha" + 0.062*"trying" + 0.054*"play" + 0.050*"#TimesUp" + 0.035*"talks" + 0.026*"lives" + 0.025*"Well" + 0.021*"amazing" + 0.021*"everyone"
+2018-05-02 04:09:16,543 : INFO : topic #26 (0.017): 0.076*"silence" + 0.049*"They" + 0.039*"Clinton" + 0.039*"These" + 0.029*"everything" + 0.027*"Woman" + 0.026*"Here's" + 0.024*"movement" + 0.019*"white" + 0.019*"women"
+2018-05-02 04:09:16,543 : INFO : topic #52 (0.017): 0.052*"Me" + 0.048*"#Timesup" + 0.041*"thoughts" + 0.035*"Touch" + 0.033*"private" + 0.014*"ruined" + 0.013*"friends" + 0.012*"FBI" + 0.012*"Go" + 0.012*"#FBI"
+2018-05-02 04:09:16,544 : INFO : topic diff=0.370224, rho=0.361906
+2018-05-02 04:09:16,546 : INFO : PROGRESS: pass 3, at document #4000/18540
+2018-05-02 04:09:17,027 : INFO : merging changes from 4000 documents into a model of 18540 documents
