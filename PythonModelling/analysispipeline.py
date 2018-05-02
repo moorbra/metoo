@@ -76,15 +76,15 @@ tokenizer.save_data_frame(tokenizer.documents_without_tokens, analysis_file_path
 # LDA Model
 logger.info("Performing LDA topic modelling")
 lda_strategy = LDAStrategy()
-lda_strategy.number_passes = 20
+lda_strategy.number_passes = 1000
 lda_strategy.number_terms = 15
 lda_strategy.number_topics = 60
 lda_strategy.minimum_document_topic_probability = .90
 lda_strategy.minimum_term_topic_probability = .05
 lda_strategy.eval_model_every = 5
 lda_strategy.update_model_every = 1
-lda_strategy.chunksize = 4000
-lda_strategy.training_iterations = 10000000
+lda_strategy.chunksize = 3500
+lda_strategy.training_iterations = 100000000
 lda_strategy.tokens_column = "tokens"
 lda_strategy.text_column = "tweet"
 ldamodel = TaskLdaModel(lda_strategy)

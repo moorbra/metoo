@@ -9,3 +9,4 @@ New,new
 #withyou,#WithYou
 wh,WhiteHouse
 Die,die
+People,people
