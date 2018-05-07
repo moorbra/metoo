@@ -4,7 +4,7 @@ import os
 
 class Task:
     def __init__(self):
-        self._logger = logging.getLogger()
+        self._logger = logging.getLogger('analysis')
 
     @property
     def logger(self):
