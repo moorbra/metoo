@@ -1,11 +1,11 @@
-2018-05-07 05:38:07,441 : INFO : Loading data files.
-2018-05-07 05:38:07,473 : INFO : Found 9218 documents in data file ../data/dre/data/Metoo0310_2017.csv.
-2018-05-07 05:38:07,486 : INFO : Found 2566 documents in data file ../data/dre/data/Metoo_Feb262018.csv.
-2018-05-07 05:38:07,501 : INFO : Found 1628 documents in data file ../data/dre/data/Metoo_Feb272018.csv.
-2018-05-07 05:38:07,525 : INFO : Found 7752 documents in data file ../data/dre/data/Metoo_Jan312018.csv.
-2018-05-07 05:38:07,535 : INFO : Found 1631 documents in data file ../data/dre/data/MeToo_March062018.csv.
-2018-05-07 05:38:07,546 : INFO : Found 2258 documents in data file ../data/dre/data/Metoo_March082018.csv.
-2018-05-07 05:38:07,558 : INFO : Found 1956 documents in data file ../data/dre/data/Metoo_March132018.csv.
-2018-05-07 05:38:08,454 : INFO : Loaded 27009 documents.
-2018-05-07 05:38:08,709 : INFO : Computing sentiment for each document.
-2018-05-07 05:38:22,771 : INFO : Aggregating sentiment for corpus.
+2018-05-13 14:15:20,998 : INFO : Loading data files.
+2018-05-13 14:15:21,036 : INFO : Found 9218 documents in data file ../data/dre/data/Metoo0310_2017.csv.
+2018-05-13 14:15:21,063 : INFO : Found 2566 documents in data file ../data/dre/data/Metoo_Feb262018.csv.
+2018-05-13 14:15:21,089 : INFO : Found 1628 documents in data file ../data/dre/data/Metoo_Feb272018.csv.
+2018-05-13 14:15:21,132 : INFO : Found 7752 documents in data file ../data/dre/data/Metoo_Jan312018.csv.
+2018-05-13 14:15:21,157 : INFO : Found 1631 documents in data file ../data/dre/data/MeToo_March062018.csv.
+2018-05-13 14:15:21,174 : INFO : Found 2258 documents in data file ../data/dre/data/Metoo_March082018.csv.
+2018-05-13 14:15:21,195 : INFO : Found 1956 documents in data file ../data/dre/data/Metoo_March132018.csv.
+2018-05-13 14:15:22,046 : INFO : Loaded 27009 documents.
+2018-05-13 14:15:22,400 : INFO : Computing sentiment for each document.
+2018-05-13 14:15:35,716 : INFO : Aggregating sentiment for corpus.

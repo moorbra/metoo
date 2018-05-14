@@ -44,14 +44,19 @@ class TopicModel:
         return models.TfidfModel(corpus)
 
     def get_topics(self):
-        topics = [self.__get_term_from_topic(topic[0], topic[1]) for topic in self._model.print_topics(self._strategy.number_topics, self._strategy.number_terms)]        
-        return pd.concat(topics, ignore_index = True)
+        #topics = [self.__get_term_from_topic(topic[0], topic[1]) for topic in self._model.print_topics(self.strategy.number_topics, self.strategy.number_terms)]        
+        topics = self._model.print_topics(self.strategy.number_topics, self.strategy.number_terms)
+        topics = pd.DataFrame(topics)
+        topics.columns = ["id", "topic"]
+        return pd.DataFrame(topics)
 
     def __get_term_from_topic(self, topic_id, topic):
         return pd.DataFrame([{"id": topic_id + 1, "term": term.split("*")[1].replace('"',""), "weight": term.split("*")[0]} for term in topic.split(" + ")])
     
     def create_dictionary(self, document_tokens_list):
-        return corpora.Dictionary(document_tokens_list)
+        dictionary = corpora.Dictionary(document_tokens_list)
+        dictionary.filter_extremes(no_below=self.strategy.token_frequency_not_below, no_above=self.strategy.token_frequency_not_above_percent)
+        return dictionary
     
     def create_corpus(self, document_tokens_list, dictionary):
         return [dictionary.doc2bow(token_list) for token_list in document_tokens_list]

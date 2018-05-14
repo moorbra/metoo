@@ -4,6 +4,24 @@ class AnalysisStrategy:
         self._number_terms = 10
         self._tokens_column = "tokens"
         self._text_column = "text"
+        self._token_frequency_not_below = 20
+        self._token_frequency_not_above_percent = .5
+
+    @property
+    def token_frequency_not_above_percent(self):
+        return self._token_frequency_not_above_percent
+
+    @token_frequency_not_above_percent.setter
+    def token_frequency_not_above_percent(self, value):
+        self._token_frequency_not_above_percent = value        
+
+    @property
+    def token_frequency_not_below(self):
+        return self._token_frequency_not_below
+
+    @token_frequency_not_below.setter
+    def token_frequency_not_below(self, value):
+        self._token_frequency_not_below = value        
 
     @property
     def number_topics(self):

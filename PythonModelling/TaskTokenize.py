@@ -2,6 +2,7 @@ from Task import Task
 import pandas as pd
 from Strategies import TokenizationStrategy
 from nltk.tokenize import TweetTokenizer
+from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 from pprintpp import pprint as pp
 import itertools
@@ -11,12 +12,13 @@ class TaskTokenize(Task):
     def __init__(self, tokenization_strategy):
         super().__init__()
         self._strategy = tokenization_strategy
-        self._tokenizer = TweetTokenizer(strip_handles=self._strategy.strip_handles, reduce_len=self._strategy.reduce_length)        
+        self._tokenizer = TweetTokenizer(strip_handles=self._strategy.strip_handles, reduce_len=self._strategy.reduce_length, preserve_case=False)        
         self._stop_words = None
         self._synonyms = {}
         self._token_frequencies = pd.DataFrame()
         self._infrequent_tokens = pd.DataFrame()
         self._documents_without_tokens = pd.DataFrame()
+        self._lemmatizer = WordNetLemmatizer()
 
     @property
     def stop_words(self):
@@ -123,8 +125,12 @@ class TaskTokenize(Task):
         tokens = self._tokenizer.tokenize(tweet)
         tokens = self.__apply_synonyms(tokens)
         tokens = self.__remove_stop_words(tokens)
-        tokens = self.__remove_too_short_tokens(tokens)        
+        tokens = self.__lemmatize_tokens(tokens) 
+        tokens = self.__remove_too_short_tokens(tokens)               
         return tokens
+
+    def __lemmatize_tokens(self, tokens):
+        return [self._lemmatizer.lemmatize(t) for t in tokens]
 
     def __remove_too_short_tokens(self, tokens):
         return [t for t in tokens if len(t) >= self._strategy.minimum_term_length]

@@ -2,6 +2,7 @@ from Strategies.AnalysisStrategy import AnalysisStrategy
 
 class LDAStrategy(AnalysisStrategy):
     def __init__(self):
+        super().__init__()
         self._number_passes = 50
         self._minimum_document_topic_probability = .5
         self._minimum_term_topic_probability = .5
@@ -10,6 +11,33 @@ class LDAStrategy(AnalysisStrategy):
         self._chunksize = 2000
         self._update_model_every = 1
         self._training_iterations = 50
+        self._eta = 'auto'
+        self._alpha = 'auto'
+        self._phrases_min_count = 20
+
+    @property
+    def phrases_min_count(self):
+        return self._phrases_min_count
+
+    @phrases_min_count.setter
+    def phrases_min_count(self, value):
+        self._phrases_min_count = value
+
+    @property
+    def alpha(self):
+        return self._alpha
+
+    @alpha.setter
+    def alpha(self, value):
+        self._alpha = value
+
+    @property
+    def eta(self):
+        return self._eta
+
+    @eta.setter
+    def training_iterations(self, value):
+        self._eta = value
 
     @property
     def training_iterations(self):

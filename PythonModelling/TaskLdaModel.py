@@ -2,6 +2,7 @@ from Task import Task
 from TopicModel import TopicModel
 from gensim.models import LdaModel
 from gensim.models import CoherenceModel
+from gensim.models.phrases import Phrases, Phraser
 from Strategies import LDAStrategy
 import pandas as pd
 
@@ -14,9 +15,15 @@ class TaskLdaModel(TopicModel, Task):
 
     def create_model(self, documents_data_frame):
         self.logger.info("Creating LDA topic model.")
-        self._texts = documents_data_frame[self.strategy.tokens_column]
-        self.dictionary = self.create_dictionary(documents_data_frame[self.strategy.tokens_column])
-        self.corpus = self.create_corpus(documents_data_frame[self.strategy.tokens_column], self.dictionary)
+        self._texts = documents_data_frame[self.strategy.tokens_column].tolist()
+        self.logger.info(f"Adding {len(self._texts)} documents to corpus.")
+        self._texts = self.__add_bigrams(self._texts)
+        self.logger.info("Creating dictionary from texts.")
+        self.dictionary = self.create_dictionary(self._texts)
+        self.logger.info("Creating corpus from texts and dictionary.")
+        self.corpus = self.create_corpus(self._texts, self.dictionary)
+        self.logger.info("Creating topic model.")
+        self.__log_strategy()
         self.model = LdaModel(self.corpus, 
             id2word = self.dictionary, 
             num_topics = self.strategy.number_topics, 
@@ -25,7 +32,28 @@ class TaskLdaModel(TopicModel, Task):
             eval_every = self.strategy.eval_model_every,
             chunksize = self.strategy.chunksize,
             update_every = self.strategy.update_model_every,
-            iterations = self.strategy.training_iterations)
+            iterations = self.strategy.training_iterations,
+            alpha=self.strategy.alpha,
+            eta=self.strategy.eta)
+
+    def __log_strategy(self):
+        self.logger.info("Model strategy.")
+        self.logger.info(f"Number passes {self.strategy.number_passes}.")
+        self.logger.info(f"Chunk size {self.strategy.chunksize}.")
+        self.logger.info(f"Training iterations {self.strategy.training_iterations}.")
+        self.logger.info(f"Number topics {self.strategy.number_topics}.")
+
+    def __add_bigrams(self, tokenized_documents):
+        self.logger.info("Adding bigrams.")
+        phrases = Phrases(tokenized_documents, min_count=self.strategy.phrases_min_count)
+        bigram = Phraser(phrases)
+        for idx in range(len(tokenized_documents)):
+            for token in bigram[tokenized_documents[idx]]:
+                if '_' in token:
+                    # Token is a bigram, add to document.
+                    tokenized_documents[idx].append(token)
+        return tokenized_documents 
+
 
     def get_document_topics(self):
         document_topics = [
@@ -76,17 +104,11 @@ class TaskLdaModel(TopicModel, Task):
     def calculate_topic_coherence(self):
         coherence_model = CoherenceModel(
             model = self.model,
-            #corpus = self.corpus,
             texts = self._texts,
             dictionary = self.dictionary,
             coherence = 'c_v')
-        return coherence_model.get_coherence()
-
-    def calculate_per_topic_coherence(self):
-        coherence_model = CoherenceModel(
-           model = self.model,
-            #corpus = self.corpus,
-            texts = self._texts,
-            dictionary = self.dictionary,
-            coherence = 'c_v')
-        return coherence_model.get_coherence_per_topic()
+        topic_coherence = coherence_model.get_coherence()
+        self.logger.info(f"Aggregate topic coherence: {topic_coherence}")
+        per_topic_coherence = coherence_model.get_coherence_per_topic()
+        [self.logger.info(f"Topic {i} coherence {tc}.") for i ,tc in enumerate(per_topic_coherence)]
+        return { "topic_coherence": topic_coherence, "per_topic_coherence": per_topic_coherence}

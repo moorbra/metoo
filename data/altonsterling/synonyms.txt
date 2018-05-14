@@ -1,7 +1,4 @@
 word,replacement
-announces,announce
-announced,announce
-announcing,announce
 sandrabl,sandrabland
 sandr,sandrabland
 sandrbla,sandrabland
